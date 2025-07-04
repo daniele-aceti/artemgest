@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presentazione</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body class="relative bg-white text-black">
+    <!-- Hero Section -->
+    <section
+      class="relative w-full h-screen flex items-center justify-center overflow-hidden"
+    >
+      <img
+        class="absolute inset-0 w-full h-full object-cover opacity-20"
+        src="/img/sfondo.png"
+        alt="sfondo"
+      />
+      <div class="relative text-center p-10 z-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6" data-aos="fade-up">
+          ArtemGest
+        </h1>
+        <p
+          class="text-lg max-w-xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Un'applicazione intuitiva e completa per la gestione aziendale, con
+          funzionalità di dashboard interattiva, registrazione clienti e
+          stampa automatica di fatture.
+        </p>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section
+      class="relative w-full h-screen flex flex-col items-center justify-center px-4 bg-gray-100 text-center"
+    >
+      <div data-aos="flip-left" class="max-w-3xl fade-up">
+        <p class="text-lg mb-8">
+          Questo progetto è stato realizzato a scopo didattico con l'obiettivo
+          di integrare tecnologie moderne per lo sviluppo web full stack. La
+          dashboard consente una gestione aziendale semplificata, includendo
+          funzionalità come la registrazione dei clienti, la visualizzazione
+          interattiva dei dati e la generazione automatica di fatture. Il
+          front-end è stato sviluppato utilizzando Tailwind CSS per uno stile
+          responsivo e moderno, mentre il back-end si basa su Spring MVC per la
+          gestione delle logiche applicative. La parte di templating è gestita
+          tramite Thymeleaf, che consente una perfetta integrazione tra
+          front-end e back-end. Infine, Hibernate è stato utilizzato per
+          l'interazione con il database, garantendo una persistenza efficiente e
+          strutturata dei dati.
+        </p>
+
+        <!-- Glowing Button -->
+        <a
+          href="http://localhost:8080/dashboard"
+          class="flex justify-center relative inline-block px-8 py-4 font-semibold text-black rounded-full overflow-hidden group mt-6"
+        >
+          <span
+            class="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-red-500 opacity-0 group-hover:opacity-100 transition duration-700 blur-xl"
+          ></span>
+          <span class="relative z-10">GO</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000, // durata animazione in ms
+        once: true, // animazione solo la prima volta
+      });
+    </script>
+  </body>
+</html>
