@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtemGest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3B82F6",
+              dark: "#0F172A",
+              light: "#F8FAFC",
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(0, 0, 0, 0.05)",
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/lucide@0.287.0/dist/umd/lucide.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light text-dark font-sans antialiased">
+    <!-- Wrapper -->
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside
+        class="w-20 md:w-64 bg-white shadow-soft border-r flex flex-col items-center md:items-start py-6 px-4"
+      >
+        <!-- Logo + Titolo -->
+        <div class="flex items-center space-x-3 mb-10">
+          <img
+            src="/img/logo.PNG"
+            alt="Logo ArtemGest"
+            class="w-8 h-8 object-contain"
+          />
+          <h1
+            class="hidden md:block text-xl font-bold text-neutral-700 tracking-tight"
+          >
+            ArtemGest
+          </h1>
+        </div>
+
+        <!-- Navigazione -->
+        <nav class="flex flex-col space-y-6 text-gray-600 w-full">
+          <a
+            href="http://localhost:8080/dashboard"
+            class="flex items-center gap-3 hover:text-primary transition"
+          >
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Dashboard</span>
+          </a>
+          <a
+            href="http://localhost:8080/clienti"
+            class="flex items-center gap-3 hover:text-primary transition"
+          >
+            <i data-lucide="users" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Clienti</span>
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 hover:text-primary transition"
+          >
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Fatture</span>
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 hover:text-primary transition"
+          >
+            <i data-lucide="settings" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Impostazioni</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <main class="flex-1 flex flex-col px-6 py-8">
+        <!-- Top Bar -->
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8"
+        >
+          <input
+            type="text"
+            placeholder="🔍 Cerca cliente..."
+            class="w-full md:w-1/2 px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <a
+             href="http://localhost:8080/nuovoCliente"
+            class="relative px-6 py-2 rounded-lg font-medium text-neutral-800 bg-white/30 backdrop-blur-md shadow-md border border-neutral-200 hover:bg-white/50 transition-all duration-300 ease-in-out hover:scale-105"
+          >
+            <span>Aggiungi Cliente</span>
+          </a>
+        </div>
+
+        <!-- Client Table -->
+        <div class="bg-white rounded-xl shadow-soft overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50 text-sm text-gray-600">
+              <tr>
+                <th class="px-6 py-4 text-left">Nome</th>
+                <th class="px-6 py-4 text-left">Email</th>
+                <th class="px-6 py-4 text-left">Stato</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-sm">
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4">Mario Rossi</td>
+                <td class="px-6 py-4">mario.rossi@email.com</td>
+                <td class="px-6 py-4 text-green-500 font-medium">Attivo</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4">Luca Bianchi</td>
+                <td class="px-6 py-4">luca.bianchi@email.com</td>
+                <td class="px-6 py-4 text-red-500 font-medium">Inattivo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

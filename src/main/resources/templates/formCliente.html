@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aggiungi Cliente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-2xl w-full bg-white p-10 rounded-xl shadow-xl">
+      <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">
+        Aggiungi Cliente
+      </h2>
+
+      <form
+        action="#"
+        method="post"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        <!-- Ragione Sociale -->
+        <div class="col-span-1 md:col-span-2">
+          <label
+            for="ragioneSociale"
+            class="block text-sm font-medium text-gray-700"
+            >Ragione Sociale</label
+          >
+          <input
+            type="text"
+            id="ragioneSociale"
+            name="ragioneSociale"
+            placeholder="Es. ArtemGest S.r.l."
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Partita IVA -->
+        <div>
+          <label
+            for="partitaIva"
+            class="block text-sm font-medium text-gray-700"
+            >Partita IVA</label
+          >
+          <input
+            type="text"
+            id="partitaIva"
+            name="partitaIva"
+            placeholder="Es. 12345678901"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Codice Fiscale -->
+        <div>
+          <label
+            for="codiceFiscale"
+            class="block text-sm font-medium text-gray-700"
+            >Codice Fiscale</label
+          >
+          <input
+            type="text"
+            id="codiceFiscale"
+            name="codiceFiscale"
+            placeholder="Es. RSSMRA85M01H501Z"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="cliente@email.com"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Telefono -->
+        <div>
+          <label for="telefono" class="block text-sm font-medium text-gray-700"
+            >Telefono</label
+          >
+          <input
+            type="text"
+            id="telefono"
+            name="telefono"
+            placeholder="Es. 3201234567"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Indirizzo -->
+        <div class="col-span-1 md:col-span-2">
+          <label for="indirizzo" class="block text-sm font-medium text-gray-700"
+            >Indirizzo</label
+          >
+          <input
+            type="text"
+            id="indirizzo"
+            name="indirizzo"
+            placeholder="Via Roma 12"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Città -->
+        <div>
+          <label for="citta" class="block text-sm font-medium text-gray-700"
+            >Città</label
+          >
+          <input
+            type="text"
+            id="citta"
+            name="citta"
+            placeholder="Milano"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- CAP -->
+        <div>
+          <label for="cap" class="block text-sm font-medium text-gray-700"
+            >CAP</label
+          >
+          <input
+            type="text"
+            id="cap"
+            name="cap"
+            placeholder="20100"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Provincia -->
+        <div class="col-span-1 md:col-span-2">
+          <label for="provincia" class="block text-sm font-medium text-gray-700"
+            >Provincia</label
+          >
+          <input
+            type="text"
+            id="provincia"
+            name="provincia"
+            placeholder="MI"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+          />
+        </div>
+
+        <!-- Pulsante invio -->
+        <div class="col-span-1 md:col-span-2 pt-4">
+          <button
+            type="submit"
+            class="w-full relative inline-block px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all duration-300 overflow-hidden"
+          >
+            <span class="relative z-10">Salva Cliente</span>
+            <span
+              class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"
+            ></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

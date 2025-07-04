@@ -26,16 +26,20 @@ public class ClienteController {
         this.fatturaService = fatturaService;
     }
 
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
+    }
+
     @GetMapping
     public String presentazione() {
         return "presentazione";
     }
-    
 
-    @GetMapping("/dashboard")
+    @GetMapping("/clienti")
     public String dashboard(@RequestParam(name = "keyword", required = false) String param, Model model) {
         model.addAttribute("listaClienti", clienteService.cercaCliente(param));
-        return "dashboard";
+        return "clienti";
     }
 
     @GetMapping("/cliente/{id}")

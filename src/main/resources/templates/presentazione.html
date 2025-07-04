@@ -7,6 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <style>
+      /* Aggiungi al tuo CSS */
+      .btn-click:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+      }
+    </style>
   </head>
   <body class="relative bg-white text-black">
     <!-- Hero Section -->
@@ -28,8 +35,8 @@
           data-aos-delay="200"
         >
           Un'applicazione intuitiva e completa per la gestione aziendale, con
-          funzionalità di dashboard interattiva, registrazione clienti e
-          stampa automatica di fatture.
+          funzionalità di dashboard interattiva, registrazione clienti e stampa
+          automatica di fatture.
         </p>
       </div>
     </section>
@@ -57,10 +64,10 @@
         <!-- Glowing Button -->
         <a
           href="http://localhost:8080/dashboard"
-          class="flex justify-center relative inline-block px-8 py-4 font-semibold text-black rounded-full overflow-hidden group mt-6"
+          class="flex justify-center relative inline-block px-6 py-3 font-semibold text-gray-800 rounded-full overflow-hidden group mt-6 btn-click"
         >
           <span
-            class="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-red-500 opacity-0 group-hover:opacity-100 transition duration-700 blur-xl"
+            class="absolute inset-0 bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] opacity-0 group-hover:opacity-100 transition duration-700 blur-xl"
           ></span>
           <span class="relative z-10">GO</span>
         </a>
