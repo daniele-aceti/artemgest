@@ -42,12 +42,6 @@ public class ClienteController {
         return "clienti";
     }
 
-    @GetMapping("/cliente/{id}")
-    public String dettagliCliente(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("cliente", clienteService.cliente(id));
-        return "dettagliCliente";
-    }
-
     @GetMapping("/nuovoCliente")
     public String nuovoCliente(Model model) {
         model.addAttribute("nuovoCliente", new Cliente());
@@ -57,20 +51,29 @@ public class ClienteController {
     @PostMapping("/nuovoCliente")
     public String nuovoClientePost(@Valid @ModelAttribute("nuovoCliente") Cliente clienteForm, Model model) {
         clienteService.creaNuovoCliente(clienteForm);
-        return "redirect:/" + clienteForm.getId();
+        return "redirect:/dettaglioCliente/" + clienteForm.getId();
     }
 
-    @GetMapping("/nuovaFattura")
-    public String nuovaFattura(Model model) {
+    @GetMapping("/nuovaFattura/{idCliente}")
+    public String nuovaFattura(@PathVariable Long idCliente, Model model) {
+        model.addAttribute("cliente", clienteService.dettaglioCLiente(idCliente));
         model.addAttribute("nuovaFattura", new Fattura());
         return "formFattura";
     }
 
+    /* 
     @PostMapping("/nuovaFattura/{idCliente}")
     public String nuovaFatturaPost(@PathVariable("idCliente") Long idCliente, @Valid @ModelAttribute("nuovaFattura") Fattura formFattura,
             Model model) {
         fatturaService.creaNuovaFattura(formFattura, idCliente);
         return "redirect:/"; //TODO STAMPA FATTURA FILE DI STAMPA
+    }
+     */
+
+    @GetMapping("/dettaglioCliente/{id}")
+    public String dettaglioCliente(@PathVariable Long id, Model model) {
+        model.addAttribute("cliente", clienteService.dettaglioCLiente(id));
+        return "dettaglioCliente";
     }
 
 }

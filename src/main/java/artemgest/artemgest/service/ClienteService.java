@@ -33,4 +33,8 @@ public class ClienteService {
         }
         return clienteRepository.findByRagioneSocialeContainingIgnoreCase(param);
     }
+
+    public Cliente dettaglioCLiente(Long idCLiente){
+       return clienteRepository.findById(idCLiente).get();
+    }
 }

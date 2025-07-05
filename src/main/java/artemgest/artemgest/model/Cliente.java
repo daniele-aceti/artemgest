@@ -23,11 +23,8 @@ public class Cliente {
     @Column(nullable = false)
     private String ragioneSociale;
 
-    @Size(min = 11, max = 11)
-    private String partitaIva;
-
-    @Size(min = 16, max = 16)
-    private String codiceFiscale;
+    @Size(min = 11, max = 16)
+    private String pIvaCFiscale;
 
     @NotBlank(message = "Inserire email corretta")
     @Column(nullable = false)
@@ -80,22 +77,7 @@ public class Cliente {
     public void setRagioneSociale(String ragioneSociale) {
         this.ragioneSociale = ragioneSociale;
     }
-
-    public String getPartitaIva() {
-        return partitaIva;
-    }
-
-    public void setPartitaIva(String partitaIva) {
-        this.partitaIva = partitaIva;
-    }
-
-    public String getCodiceFiscale() {
-        return codiceFiscale;
-    }
-
-    public void setCodiceFiscale(String codiceFiscale) {
-        this.codiceFiscale = codiceFiscale;
-    }
+    
 
     public String getEmail() {
         return email;
@@ -143,6 +125,14 @@ public class Cliente {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+
+    public String getpIvaCFiscale() {
+        return pIvaCFiscale;
+    }
+
+    public void setpIvaCFiscale(String pIvaCFiscale) {
+        this.pIvaCFiscale = pIvaCFiscale;
     }
 
 }

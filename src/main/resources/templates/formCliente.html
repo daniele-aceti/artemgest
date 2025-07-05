@@ -14,7 +14,8 @@
       </h2>
 
       <form
-        action="#"
+        th:action="@{/nuovoCliente}"
+        th:object="${nuovoCliente}"
         method="post"
         class="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
@@ -26,6 +27,7 @@
             >Ragione Sociale</label
           >
           <input
+            th:field="*{ragioneSociale}"
             type="text"
             id="ragioneSociale"
             name="ragioneSociale"
@@ -37,31 +39,16 @@
         <!-- Partita IVA -->
         <div>
           <label
-            for="partitaIva"
+            for="pIvaCFiscale"
             class="block text-sm font-medium text-gray-700"
-            >Partita IVA</label
+            >P. IVA / CODICE FISCALE</label
           >
           <input
+            th:field="*{pIvaCFiscale}"
             type="text"
-            id="partitaIva"
-            name="partitaIva"
-            placeholder="Es. 12345678901"
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
-          />
-        </div>
-
-        <!-- Codice Fiscale -->
-        <div>
-          <label
-            for="codiceFiscale"
-            class="block text-sm font-medium text-gray-700"
-            >Codice Fiscale</label
-          >
-          <input
-            type="text"
-            id="codiceFiscale"
-            name="codiceFiscale"
-            placeholder="Es. RSSMRA85M01H501Z"
+            id="pIvaCFiscale"
+            name="pIvaCFiscale"
+            placeholder="Es. 12345678901 o RSSMRA85M01H501Z"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
           />
         </div>
@@ -72,6 +59,7 @@
             >Email</label
           >
           <input
+            th:field="*{email}"
             type="email"
             id="email"
             name="email"
@@ -86,6 +74,7 @@
             >Telefono</label
           >
           <input
+            th:field="*{telefono}"
             type="text"
             id="telefono"
             name="telefono"
@@ -100,6 +89,7 @@
             >Indirizzo</label
           >
           <input
+            th:field="*{indirizzo}"
             type="text"
             id="indirizzo"
             name="indirizzo"
@@ -114,6 +104,7 @@
             >Città</label
           >
           <input
+            th:field="*{citta}"
             type="text"
             id="citta"
             name="citta"
@@ -128,6 +119,7 @@
             >CAP</label
           >
           <input
+            th:field="*{cap}"
             type="text"
             id="cap"
             name="cap"
@@ -142,6 +134,7 @@
             >Provincia</label
           >
           <input
+            th:field="*{provincia}"
             type="text"
             id="provincia"
             name="provincia"
@@ -157,6 +150,20 @@
             class="w-full relative inline-block px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all duration-300 overflow-hidden"
           >
             <span class="relative z-10">Salva Cliente</span>
+            <span
+              class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"
+            ></span>
+          </button>
+        </div>
+
+        <!-- Pulsante Indietro -->
+        <div class="col-span-1 md:col-span-2 pb-2">
+          <button
+            type="button"
+            onclick="history.back()"
+            class="w-full relative inline-block px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 rounded-lg shadow-md hover:from-gray-400 hover:to-gray-300 transition-all duration-300 overflow-hidden"
+          >
+            <span class="relative z-10">Indietro</span>
             <span
               class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"
             ></span>

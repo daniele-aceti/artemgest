@@ -74,8 +74,8 @@
             href="#"
             class="flex items-center gap-3 hover:text-primary transition"
           >
-            <i data-lucide="settings" class="w-5 h-5"></i>
-            <span class="hidden md:inline">Impostazioni</span>
+            <i data-lucide="calendar" class="w-5 h-5"></i>
+            <span class="hidden md:inline">Appuntamenti</span>
           </a>
         </nav>
       </aside>
@@ -92,7 +92,7 @@
             class="w-full md:w-1/2 px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <a
-             href="http://localhost:8080/nuovoCliente"
+            href="http://localhost:8080/nuovoCliente"
             class="relative px-6 py-2 rounded-lg font-medium text-neutral-800 bg-white/30 backdrop-blur-md shadow-md border border-neutral-200 hover:bg-white/50 transition-all duration-300 ease-in-out hover:scale-105"
           >
             <span>Aggiungi Cliente</span>
@@ -106,19 +106,29 @@
               <tr>
                 <th class="px-6 py-4 text-left">Nome</th>
                 <th class="px-6 py-4 text-left">Email</th>
-                <th class="px-6 py-4 text-left">Stato</th>
+                <th class="px-6 py-4 text-left">Telefono</th>
+                <th class="px-6 py-4 text-left">P.Iva / C.F.</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm">
-              <tr class="hover:bg-gray-50 transition">
-                <td class="px-6 py-4">Mario Rossi</td>
-                <td class="px-6 py-4">mario.rossi@email.com</td>
-                <td class="px-6 py-4 text-green-500 font-medium">Attivo</td>
-              </tr>
-              <tr class="hover:bg-gray-50 transition">
-                <td class="px-6 py-4">Luca Bianchi</td>
-                <td class="px-6 py-4">luca.bianchi@email.com</td>
-                <td class="px-6 py-4 text-red-500 font-medium">Inattivo</td>
+              <tr
+                th:each="cliente : ${listaClienti}"
+                class="hover:bg-gray-50 transition"
+              >
+                <td
+                  th:onclick="|window.location.href='@{/dettaglioCliente/{id}(id=${cliente.id})}'|"
+                  th:text="${cliente.ragioneSociale}"
+                  class="px-6 py-4 cursor-pointer"
+                ></td>
+                <td th:text="${cliente.email}" class="px-6 py-4"></td>
+                <td
+                  th:text="${cliente.telefono}"
+                  class="px-6 py-4 text-green-500 font-medium"
+                ></td>
+                <td
+                  th:text="${cliente.pIvaCFiscale}"
+                  class="px-6 py-4 text-green-500 font-medium"
+                ></td>
               </tr>
             </tbody>
           </table>

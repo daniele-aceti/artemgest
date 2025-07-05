@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Genera Fattura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-2xl w-full bg-white p-10 rounded-xl shadow-xl">
+      <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">
+        Genera Fattura
+      </h2>
+
+      <form
+        th:action="@{'/genera-fattura/' + ${cliente.id}}"
+        th:object="${nuovaFattura}"
+        method="post"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        <!-- Ragione Sociale (solo lettura) -->
+        <div class="col-span-1 md:col-span-2">
+          <label
+            for="ragioneSociale"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Ragione Sociale
+          </label>
+          <input
+            type="text"
+            id="ragioneSociale"
+            th:value="${cliente.ragioneSociale}"
+            readonly
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
+          />
+        </div>
+
+        <!-- Partita IVA (solo lettura) -->
+        <div>
+          <label
+            for="pIvaCFiscale"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Partita IVA
+          </label>
+          <input
+            type="text"
+            id="pIvaCFiscale"
+            th:value="${cliente.pIvaCFiscale}"
+            readonly
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
+          />
+        </div>
+
+        <!-- Importo -->
+        <div>
+          <label for="importo" class="block text-sm font-medium text-gray-700"
+            >Importo</label
+          >
+          <input
+            type="number"
+            step="0.01"
+            id="importo"
+            th:field="*{importo}"
+            placeholder="Es. 1500.00"
+            required
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- IVA -->
+        <div>
+          <label for="iva" class="block text-sm font-medium text-gray-700"
+            >IVA (%)</label
+          >
+          <input
+            type="number"
+            step="0.01"
+            id="iva"
+            th:field="*{iva}"
+            placeholder="Es. 22"
+            required
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- Data Inizio Fattura -->
+        <div>
+          <label
+            for="dataInizioFattura"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Data Inizio Fattura
+          </label>
+          <input
+            type="date"
+            id="dataInizioFattura"
+            th:field="*{dataInizioFattura}"
+            required
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- Data Scadenza Fattura -->
+        <div>
+          <label
+            for="dataScadenzaFattura"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Data Scadenza Fattura
+          </label>
+          <input
+            type="date"
+            id="dataScadenzaFattura"
+            th:field="*{dataScadenzaFattura}"
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- Pulsante invio -->
+        <div class="col-span-1 md:col-span-2 pt-4">
+          <button
+            type="submit"
+            class="w-full px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all duration-300"
+          >
+            Genera PDF Fattura
+          </button>
+        </div>
+
+        <!-- Pulsante Indietro -->
+        <div class="col-span-1 md:col-span-2 pb-2">
+          <button
+            type="button"
+            onclick="history.back()"
+            class="w-full relative inline-block px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 rounded-lg shadow-md hover:from-gray-400 hover:to-gray-300 transition-all duration-300 overflow-hidden"
+          >
+            <span class="relative z-10">Indietro</span>
+            <span
+              class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"
+            ></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

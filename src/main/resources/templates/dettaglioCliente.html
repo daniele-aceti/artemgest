@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dettaglio Cliente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-3xl w-full bg-white p-10 rounded-xl shadow-xl">
+      <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">
+        Dettaglio Cliente
+      </h2>
+
+      <!-- Informazioni cliente -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 text-base"
+      >
+        <div>
+          <strong>Ragione Sociale:</strong>
+          <p th:text="${cliente.ragioneSociale}"></p>
+        </div>
+        <div>
+          <strong>P. IVA / Codice Fiscale:</strong>
+          <p th:text="${cliente.pIvaCFiscale}"></p>
+        </div>
+        <div>
+          <strong>Email:</strong>
+          <p th:text="${cliente.email}"></p>
+        </div>
+        <div>
+          <strong>Telefono:</strong>
+          <p th:text="${cliente.telefono}"></p>
+        </div>
+        <div>
+          <strong>Indirizzo:</strong>
+          <p th:text="${cliente.indirizzo}"></p>
+        </div>
+        <div>
+          <strong>Città:</strong>
+          <p th:text="${cliente.citta}"></p>
+        </div>
+        <div>
+          <strong>CAP:</strong>
+          <p th:text="${cliente.cap}"></p>
+        </div>
+        <div>
+          <strong>Provincia:</strong>
+          <p th:text="${cliente.provincia}"></p>
+        </div>
+      </div>
+
+      <!-- Azioni -->
+      <div class="mt-10 flex justify-between">
+        <a
+          href="http://localhost:8080/clienti"
+          class="px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition"
+        >
+          Indietro
+        </a>
+
+        <a
+          th:href="@{/nuovaFattura/{id}(id=${cliente.id})}"
+          class="px-6 py-3 bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] text-gray-800 font-medium rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all"
+        >
+          Crea Fattura
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
