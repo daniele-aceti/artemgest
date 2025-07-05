@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dettaglio Fattura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-3xl w-full bg-white p-10 rounded-xl shadow-xl">
+      <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">
+        Dettaglio Fattura
+      </h2>
+
+      <!-- Informazioni fattura -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 text-base"
+      >
+        <div>
+          <strong>Numero Fattura:</strong>
+          <p th:text="${fattura.numeroFattura}"></p>
+        </div>
+        <div>
+          <strong>Data Emissione:</strong>
+          <p th:text="${fattura.dataInizioFattura}"></p>
+        </div>
+        <div>
+          <strong>Data Scadenza:</strong>
+          <p th:text="${fattura.dataScadenzaFattura}"></p>
+        </div>
+        <div>
+          <strong>Importo:</strong>
+          <p th:text="|€ ${fattura.importo}|"></p>
+        </div>
+        <div>
+          <strong>IVA:</strong>
+          <p th:text="|€ ${fattura.iva}|"></p>
+        </div>
+        <div>
+          <strong>Totale:</strong>
+          <p th:text="|€ ${fattura.importo + fattura.iva}|"></p>
+        </div>
+        <div>
+          <strong>Tipo IVA:</strong>
+          <p th:text="${fattura.statoIva}"></p>
+        </div>
+        <div>
+          <strong>Stato Fattura:</strong>
+          <p th:text="${fattura.statoFattura}"></p>
+        </div>
+      </div>
+
+      <!-- Dati cliente associato -->
+      <div class="mt-10 text-gray-800">
+        <h3 class="text-xl font-semibold mb-4">Cliente</h3>
+        <p>
+          <strong>Ragione Sociale:</strong>
+          <span th:text="${fattura.cliente.ragioneSociale}"></span>
+        </p>
+        <p>
+          <strong>Email:</strong>
+          <span th:text="${fattura.cliente.email}"></span>
+        </p>
+        <p>
+          <strong>Telefono:</strong>
+          <span th:text="${fattura.cliente.telefono}"></span>
+        </p>
+      </div>
+
+      <!-- Azioni -->
+      <div class="mt-10 flex justify-between">
+        <a
+          href="/clienti"
+          class="px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition"
+        >
+          Indietro
+        </a>
+
+        <a
+          th:href="@{/genera-fattura/{id}(id=${fattura.cliente.id})}"
+          class="px-6 py-3 bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] text-gray-800 font-medium rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all"
+        >
+          Rigenera PDF
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

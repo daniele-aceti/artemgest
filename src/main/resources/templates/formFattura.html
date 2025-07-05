@@ -71,51 +71,20 @@
 
         <!-- IVA -->
         <div>
-          <label for="iva" class="block text-sm font-medium text-gray-700"
-            >IVA (%)</label
-          >
-          <input
-            type="number"
-            step="0.01"
-            id="iva"
-            th:field="*{iva}"
-            placeholder="Es. 22"
+          <label for="iva" class="block text-sm font-medium text-gray-700">
+            IVA
+          </label>
+          <select
+            id="statoIva"
+            th:field="*{statoIva}"
             required
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <!-- Data Inizio Fattura -->
-        <div>
-          <label
-            for="dataInizioFattura"
-            class="block text-sm font-medium text-gray-700"
           >
-            Data Inizio Fattura
-          </label>
-          <input
-            type="date"
-            id="dataInizioFattura"
-            th:field="*{dataInizioFattura}"
-            required
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <!-- Data Scadenza Fattura -->
-        <div>
-          <label
-            for="dataScadenzaFattura"
-            class="block text-sm font-medium text-gray-700"
-          >
-            Data Scadenza Fattura
-          </label>
-          <input
-            type="date"
-            id="dataScadenzaFattura"
-            th:field="*{dataScadenzaFattura}"
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
+            <option value="" disabled selected>Seleziona IVA</option>
+            <option value="IVA22">IVA 22%</option>
+            <option value="ESENTE">Esente</option>
+            <option value="RIDOTTA">Ridotta 4%</option>
+          </select>
         </div>
 
         <!-- Pulsante invio -->

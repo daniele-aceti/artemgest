@@ -1,7 +1,8 @@
 package artemgest.artemgest.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,19 +21,21 @@ public class Fattura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Integer numeroFattura;
-
+    @DateTimeFormat(pattern = "yyy-MM-dd")
     @Column(nullable = false)
     private LocalDate dataInizioFattura;
 
+    @DateTimeFormat(pattern = "yyy-MM-dd")
     private LocalDate dataScadenzaFattura;
 
     @Column(nullable = false)
-    private BigDecimal importo;
+    private Double importo;
 
     @Column(nullable = false)
-    private BigDecimal iva;
+    private Double iva;
+
+    @Column(nullable = false)
+    private long numeroFattura;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -44,7 +47,6 @@ public class Fattura {
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
 
-    
     public StatoIva getStatoIva() {
         return statoIva;
     }
@@ -93,28 +95,32 @@ public class Fattura {
         this.id = id;
     }
 
-    public Integer getNumeroFattura() {
-        return numeroFattura;
-    }
-
     public void setNumeroFattura(Integer numeroFattura) {
         this.numeroFattura = numeroFattura;
     }
 
-    public BigDecimal getImporto() {
+    public Double getImporto() {
         return importo;
     }
 
-    public void setImporto(BigDecimal importo) {
+    public void setImporto(Double importo) {
         this.importo = importo;
     }
 
-    public BigDecimal getIva() {
+    public Double getIva() {
         return iva;
     }
 
-    public void setIva(BigDecimal iva) {
+    public void setIva(Double iva) {
         this.iva = iva;
+    }
+
+    public long getNumeroFattura() {
+        return numeroFattura;
+    }
+
+    public void setNumeroFattura(long numeroFattura) {
+        this.numeroFattura = numeroFattura;
     }
 
 }

@@ -89,7 +89,7 @@
           <div
             class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8"
           >
-            <form method="get" action="/clienti" class="flex w-full md:w-1/2">
+            <form method="get" action="/fatture" class="flex w-full md:w-1/2">
               <input
                 type="text"
                 name="keyword"
@@ -118,29 +118,29 @@
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50 text-sm text-gray-600">
               <tr>
-                <th class="px-6 py-4 text-left">Nome</th>
-                <th class="px-6 py-4 text-left">Email</th>
-                <th class="px-6 py-4 text-left">Telefono</th>
+                <th class="px-6 py-4 text-left">Cliente</th>
+                <th class="px-6 py-4 text-left">Data Fattura</th>
                 <th class="px-6 py-4 text-left">P.Iva / C.F.</th>
+                <th class="px-6 py-4 text-left">Stato Fattura</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm">
               <tr
-                th:each="cliente : ${listaClienti}"
+                th:each="fattura : ${listaFatture}"
                 class="hover:bg-gray-50 transition"
               >
                 <td
-                  th:onclick="|window.location.href='@{/dettaglioCliente/{id}(id=${cliente.id})}'|"
-                  th:text="${cliente.ragioneSociale}"
+                  th:onclick="|window.location.href='@{/dettaglioFattura/{id}(id=${fattura.id})}'|"
+                  th:text="${fattura.cliente.ragioneSociale}"
                   class="px-6 py-4 cursor-pointer"
                 ></td>
-                <td th:text="${cliente.email}" class="px-6 py-4"></td>
+                <td th:text="${fattura.dataInizioFattura}" class="px-6 py-4"></td>
                 <td
-                  th:text="${cliente.telefono}"
+                  th:text="${fattura.cliente.pIvaCFiscale}"
                   class="px-6 py-4 text-green-500 font-medium"
                 ></td>
                 <td
-                  th:text="${cliente.pIvaCFiscale}"
+                  th:text="${fattura.statoFattura}"
                   class="px-6 py-4 text-green-500 font-medium"
                 ></td>
               </tr>
