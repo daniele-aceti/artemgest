@@ -43,12 +43,21 @@ public class FatturaService {
         return fatturaRepository.save(fattura);
     }
 
-    public List<Fattura> tutteFatture() {
-        return fatturaRepository.findAll();
+    public List<Fattura> tutteFatture(String param) {
+        if (param == null || param.isBlank()) {
+            return fatturaRepository.findAll(); //TODO: INSERIRE UN LIMITE DEI CLIENTI CARICATI "TUTTI" RALLENTA
+        }
+        return fatturaRepository.findByCliente_RagioneSocialeContainingIgnoreCase(param);
     }
 
-    public Fattura fattura(Long id){
+    public Fattura fattura(Long id) {
         return fatturaRepository.findById(id).get();
+    }
+
+    public Fattura cambiaStatoFattura(Long id, Fattura formFattura){
+        Fattura fattura = fatturaRepository.findById(id).get();
+        fattura.setStatoFattura(formFattura.getStatoFattura());
+        return fatturaRepository.save(fattura);
     }
 
 }

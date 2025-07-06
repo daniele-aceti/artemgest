@@ -121,6 +121,7 @@
                 <th class="px-6 py-4 text-left">Cliente</th>
                 <th class="px-6 py-4 text-left">Data Fattura</th>
                 <th class="px-6 py-4 text-left">P.Iva / C.F.</th>
+                <th class="px-6 py-4 text-left">Cambia Stato Fattura</th>
                 <th class="px-6 py-4 text-left">Stato Fattura</th>
               </tr>
             </thead>
@@ -134,15 +135,56 @@
                   th:text="${fattura.cliente.ragioneSociale}"
                   class="px-6 py-4 cursor-pointer"
                 ></td>
-                <td th:text="${fattura.dataInizioFattura}" class="px-6 py-4"></td>
+                <td
+                  th:text="${fattura.dataInizioFattura}"
+                  class="px-6 py-4"
+                ></td>
                 <td
                   th:text="${fattura.cliente.pIvaCFiscale}"
                   class="px-6 py-4 text-green-500 font-medium"
                 ></td>
-                <td
-                  th:text="${fattura.statoFattura}"
-                  class="px-6 py-4 text-green-500 font-medium"
-                ></td>
+                <td class="px-6 py-4">
+                  <form
+                    th:action="@{/cambioStato/{id}(id=${fattura.id})}"
+                    method="post"
+                    class="flex items-center gap-3"
+                  >
+                    <!-- Select per cambiare stato -->
+                    <select
+                      name="statoFattura"
+                      class="border border-gray-300 rounded-md px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500"
+                      onchange="this.form.submit()"
+                    >
+                      <option
+                        disabled
+                        hidden
+                        th:selected="${fattura.statoFattura}"
+                      >
+                        Stato
+                      </option>
+                      <option th:value="IN_ATTESA">In Attesa</option>
+                      <option th:value="PAGATO">Pagato</option>
+                      <option th:value="SCADUTO">Scaduto</option>
+                    </select>
+                  </form>
+                </td>
+                <td th:text="${fattura.statoFattura}">
+                  <span
+                    th:if="${fattura.statoFattura == 'SCADUTO'}"
+                    class="text-red-600 font-bold"
+                  >
+                  </span>
+                  <span
+                    th:if="${fattura.statoFattura == 'IN_ATTESA'}"
+                    class="text-yellow-500 font-semibold"
+                  >
+                  </span>
+                  <span
+                    th:if="${fattura.statoFattura == 'PAGATO'}"
+                    class="text-green-600 font-semibold"
+                  >
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
