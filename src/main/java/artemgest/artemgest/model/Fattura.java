@@ -34,9 +34,6 @@ public class Fattura {
     @Column(nullable = false)
     private Double iva;
 
-    @Column(nullable = false)
-    private long numeroFattura;
-
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
@@ -95,9 +92,6 @@ public class Fattura {
         this.id = id;
     }
 
-    public void setNumeroFattura(Integer numeroFattura) {
-        this.numeroFattura = numeroFattura;
-    }
 
     public Double getImporto() {
         return importo;
@@ -115,12 +109,5 @@ public class Fattura {
         this.iva = iva;
     }
 
-    public long getNumeroFattura() {
-        return numeroFattura;
-    }
-
-    public void setNumeroFattura(long numeroFattura) {
-        this.numeroFattura = numeroFattura;
-    }
 
 }

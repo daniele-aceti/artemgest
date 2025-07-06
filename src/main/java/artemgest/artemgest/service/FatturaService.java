@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.model.Fattura;
-import artemgest.artemgest.model.StatoFattura;
 import artemgest.artemgest.repository.ClienteRepository;
 import artemgest.artemgest.repository.FatturaRepository;
 
@@ -39,7 +38,6 @@ public class FatturaService {
         fattura.setDataScadenzaFattura(fattura.getDataInizioFattura().plusDays(30));
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
         fattura.setCliente(cliente.get());
-        fattura.setStatoFattura(StatoFattura.IN_ATTESA);
         return fatturaRepository.save(fattura);
     }
 
