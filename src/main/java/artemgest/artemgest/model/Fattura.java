@@ -25,7 +25,7 @@ public class Fattura {
     @Column(nullable = false)
     private LocalDate dataInizioFattura;
 
-    @DateTimeFormat(pattern = "yyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataScadenzaFattura;
 
     @Column(nullable = false)

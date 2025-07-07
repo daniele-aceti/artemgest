@@ -43,11 +43,14 @@
           <div
             class="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wide"
           >
-            Totale Fattura Oggi
+            Totale Fatturato Mese
           </div>
-          <div class="text-3xl font-bold text-gray-900">€ 12.345,67</div>
+          <div
+            th:text="${fatturatoMese}"
+            class="text-3xl font-bold text-gray-900"
+          ></div>
           <div class="text-sm text-gray-400 mt-1 text-center">
-            Importo totale delle fatture emesse oggi
+            Importo totale delle fatture pagate
           </div>
         </div>
 
@@ -60,24 +63,48 @@
           >
             Fatture Emesse
           </div>
-          <div class="text-3xl font-bold text-gray-900">256</div>
+          <div
+            th:text="${numeroFattureMese}"
+            class="text-3xl font-bold text-gray-900"
+          ></div>
           <div class="text-sm text-gray-400 mt-1 text-center">
-            Numero totale fatture emesse
+            Numero totale fatture emesse nel mese
           </div>
         </div>
 
-        <!-- Utenti Registrati -->
+        <!-- Fatture Scadute -->
         <div
           class="bg-white rounded-xl shadow-soft p-6 flex flex-col justify-center items-center"
         >
           <div
             class="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wide"
           >
-            Utenti Registrati
+            Fatture Scadute
           </div>
-          <div class="text-3xl font-bold text-gray-900">1.024</div>
+          <div
+            th:text="${numeroFattureScaduteMese}"
+            class="text-3xl font-bold text-gray-900"
+          >
+          </div>
           <div class="text-sm text-gray-400 mt-1 text-center">
-            Numero totale utenti registrati
+            Numero totale delle fatture scaduete nel mese
+          </div>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-soft p-6 flex flex-col justify-center items-center"
+        >
+          <div
+            class="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wide"
+          >
+            Fatture In Attesa Di Pagamento
+          </div>
+          <div
+            th:text="${numeroFattureInAttesaMese}"
+            class="text-3xl font-bold text-gray-900"
+          >
+          </div>
+          <div class="text-sm text-gray-400 mt-1 text-center">
+            Numero totale delle fatture in attesa nel mese
           </div>
         </div>
       </div>

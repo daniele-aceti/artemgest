@@ -26,10 +26,7 @@ public class ClienteController {
         this.fatturaService = fatturaService;
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
-    }
+
 
     @GetMapping
     public String presentazione() {
