@@ -61,14 +61,6 @@ public class ClienteController {
         return "formFattura";
     }
 
-    /* 
-    @PostMapping("/nuovaFattura/{idCliente}")
-    public String nuovaFatturaPost(@PathVariable("idCliente") Long idCliente, @Valid @ModelAttribute("nuovaFattura") Fattura formFattura,
-            Model model) {
-        fatturaService.creaNuovaFattura(formFattura, idCliente);
-        return "redirect:/"; //TODO STAMPA FATTURA FILE DI STAMPA
-    }
-     */
 
     @GetMapping("/dettaglioCliente/{id}")
     public String dettaglioCliente(@PathVariable Long id, Model model) {

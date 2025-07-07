@@ -1,4 +1,4 @@
-package artemgest.artemgest.controller;
+package artemgest.artemgest.service;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
@@ -18,35 +18,37 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Service;
 
 import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.model.Fattura;
-import artemgest.artemgest.service.ClienteService;
-import artemgest.artemgest.service.FatturaService;
 
-@Controller
-public class RistampaFatturaController {
+@Service
+public class PdfFatturaService {
+
+    private final FatturaService fatturaService;
+
+    private final ClienteService clienteService;
 
     @Autowired
-    private ClienteService clienteService;
-    @Autowired
-    private FatturaService fatturaService;
+    public PdfFatturaService(FatturaService fatturaService, ClienteService clienteService) {
+        this.fatturaService = fatturaService;
+        this.clienteService = clienteService;
+    }
 
-    @PostMapping("/genera-fattura/{idCliente}/{idFattura}")
-    public ResponseEntity<byte[]> ristampaPdfFattura(
-            @PathVariable Long idCliente,
-            @PathVariable Long idFattura,
-            Model model) throws IOException {
-        Fattura formFattura = fatturaService.fattura(idFattura);
+    public ResponseEntity<byte[]> generaPdfFattura(Long idCliente, Fattura fattura, boolean nuovaFattura) throws IOException {
+
         Optional<Cliente> clienteOpt = clienteService.cliente(idCliente);
         Cliente cliente = clienteOpt.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato con ID: " + idCliente));
 
-        formFattura.setCliente(cliente);
-        Fattura fatturaCompleta = fatturaService.creaNuovaFattura(formFattura, idCliente);
+        Fattura fatturaCompleta = new Fattura();
+
+        if (nuovaFattura) {
+            fattura.setCliente(cliente);
+            fatturaCompleta = fatturaService.creaNuovaFattura(fattura, idCliente);
+        }else{
+            fatturaCompleta = fattura;
+        }
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -78,7 +80,7 @@ public class RistampaFatturaController {
             content.beginText();
             content.setFont(PDType1Font.HELVETICA, 12);
             content.newLineAtOffset(400, 740);
-            content.showText("N. 00" + fatturaCompleta.getId() +"-"+ LocalDate.now().getYear());
+            content.showText("N. 00" + fatturaCompleta.getId() + "-" + LocalDate.now().getYear());
             content.newLineAtOffset(0, -15);
             content.showText("Del " + fatturaCompleta.getDataInizioFattura().format(dtf));
             content.endText();
@@ -229,5 +231,4 @@ public class RistampaFatturaController {
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
-
 }

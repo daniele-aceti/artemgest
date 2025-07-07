@@ -88,18 +88,27 @@
         </div>
 
         <!-- Select per cambiare stato -->
-        <select
-          name="statoFattura"
-          th:field="*{statoFattura}"
-          required
-          class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        >
-          <option disabled hidden th:selected="${nuovaFattura.statoFattura}">
-            Stato
-          </option>
-          <option th:value="IN_ATTESA">In Attesa</option>
-          <option th:value="PAGATO">Pagato</option>
-        </select>
+        <div>
+          <label
+            for="statoFattura"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Stato Fattura
+          </label>
+          <select
+            id="statoFattura"
+            name="statoFattura"
+            th:field="*{statoFattura}"
+            required
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="" disabled hidden th:selected="${nuovaFattura.statoFattura}">
+              Stato
+            </option>
+            <option th:value="IN_ATTESA">In Attesa</option>
+            <option th:value="PAGATO">Pagato</option>
+          </select>
+        </div>
 
         <!-- Pulsante invio -->
         <div class="col-span-1 md:col-span-2 pt-4">
