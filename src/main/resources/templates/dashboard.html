@@ -34,6 +34,18 @@
     <main class="flex-1 flex flex-col px-6 py-8">
       <h2 class="text-2xl font-semibold mb-8 text-gray-800">Statistiche</h2>
 
+      <div
+        th:if="${notifications != null}"
+        class="mb-6 bg-white bg-opacity-50 backdrop-blur-md border border-blue-300 text-blue-800 px-6 py-4 rounded-lg shadow-lg max-w-4xl overflow-auto"
+        role="alert"
+        style="max-height: 140px"
+      >
+        <strong class="font-semibold mr-2">🔔 Notifiche Memo Imminenti:</strong>
+        <ul class="list-disc pl-6 space-y-1">
+          <li th:each="note : ${notifications}" th:text="${note}"></li>
+        </ul>
+      </div>
+
       <!-- Cards Statistiche -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
         <!-- Totale Fattura Oggi -->
@@ -84,8 +96,7 @@
           <div
             th:text="${numeroFattureScaduteMese}"
             class="text-3xl font-bold text-gray-900"
-          >
-          </div>
+          ></div>
           <div class="text-sm text-gray-400 mt-1 text-center">
             Numero totale delle fatture scadute nel mese
           </div>
@@ -103,14 +114,13 @@
           <div
             th:text="${numeroFattureInAttesaMese}"
             class="text-3xl font-bold text-gray-900"
-          >
-          </div>
+          ></div>
           <div class="text-sm text-gray-400 mt-1 text-center">
             Numero totale delle fatture in attesa nel mese
           </div>
         </div>
 
-         <div
+        <div
           class="bg-white rounded-xl shadow-soft p-6 flex flex-col justify-center items-center"
         >
           <div
@@ -126,7 +136,6 @@
             Importo totale fatture in attesa di pagamento
           </div>
         </div>
-
       </div>
     </main>
     <!-- Lucide Icons -->

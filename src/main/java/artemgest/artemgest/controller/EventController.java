@@ -1,6 +1,9 @@
 package artemgest.artemgest.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +39,20 @@ public class EventController {
 
     @GetMapping("/api/events")
     @ResponseBody
-    public List<Event> getEvents() {
-        return eventRepository.findAll();
+    public List<Map<String, Object>> getEvent() {
+        List<Event> eventi = eventRepository.findAll();
+        List<Map<String, Object>> risposta = new ArrayList<>();
+
+        for (Event e : eventi) {
+            Map<String, Object> evento = new HashMap<>();
+            evento.put("id", e.getId());
+            evento.put("title", e.getTitle());
+            evento.put("start", e.getDataInizio()); // FullCalendar vuole "start"
+            evento.put("end", e.getDataFine());     // ...e "end"
+            evento.put("allDay", false);
+            risposta.add(evento);
+        }
+
+        return risposta;
     }
 }

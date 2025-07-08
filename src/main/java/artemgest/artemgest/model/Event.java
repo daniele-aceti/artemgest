@@ -1,6 +1,7 @@
 package artemgest.artemgest.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +24,7 @@ public class Event {
 
     @NotNull
     @Column(nullable = false)
-    private LocalDate dataInizio;
+    private LocalDateTime dataInizio;
 
     @NotNull
     @Column(nullable = false)
@@ -45,20 +46,20 @@ public class Event {
         this.title = title;
     }
 
-    public LocalDate getDataInizio() {
-        return dataInizio;
-    }
-
-    public void setDataInizio(LocalDate dataInizio) {
-        this.dataInizio = dataInizio;
-    }
-
     public LocalDate getDataFine() {
         return dataFine;
     }
 
     public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
+    }
+
+    public LocalDateTime getDataInizio() {
+        return dataInizio;
+    }
+
+    public void setDataInizio(LocalDateTime dataInizio) {
+        this.dataInizio = dataInizio;
     }
 
 }
