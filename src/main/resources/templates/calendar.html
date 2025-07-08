@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calendario Memo</title>
+
+    <!-- FullCalendar & AOS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      #calendar {
+        max-width: 900px;
+        margin: auto;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+      }
+
+      .flip-card {
+        background-color: transparent;
+        width: 300px;
+        height: 200px;
+        perspective: 1000px;
+      }
+
+      .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        transform: rotateY(0deg);
+      }
+
+      .flip-card.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .flip-card-front,
+      .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .flip-card-back {
+        transform: rotateY(180deg);
+      }
+
+      .flip-card-back input,
+      .flip-card-back button {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">Calendario Memo</h1>
+    <div id="calendar"></div>
+
+    <!-- Form Overlay -->
+    <div class="overlay" id="memoOverlay">
+      <div class="flip-card flipped" id="flipCard">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <!-- Lasciato vuoto per flip effect -->
+          </div>
+          <div class="flip-card-back">
+            <form id="memoForm">
+              <input type="text" id="memoTitle" placeholder="Titolo" required />
+              <input type="number" id="memoHour" placeholder="Ora (0-23)" min="0" max="23" required />
+              <input type="number" id="memoMinute" placeholder="Minuti (0-59)" min="0" max="59" required />
+              <button type="submit">Aggiungi Memo</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const calendarEl = document.getElementById("calendar");
+        const overlay = document.getElementById("memoOverlay");
+        const memoForm = document.getElementById("memoForm");
+        let selectedDate = null;
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          dateClick: function (info) {
+            selectedDate = info.dateStr;
+            showMemoForm();
+          },
+        });
+
+        calendar.render();
+
+        function showMemoForm() {
+          overlay.style.display = "flex";
+        }
+
+        function hideMemoForm() {
+          overlay.style.display = "none";
+          memoForm.reset();
+        }
+
+        memoForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const title = document.getElementById("memoTitle").value;
+          const hour = document.getElementById("memoHour").value.padStart(2, '0');
+          const minute = document.getElementById("memoMinute").value.padStart(2, '0');
+
+          const fullDateTime = `${selectedDate}T${hour}:${minute}:00`;
+
+          calendar.addEvent({
+            title: `[Memo] ${title}`,
+            start: fullDateTime,
+            allDay: false,
+          });
+
+          hideMemoForm();
+        });
+
+        // Nascondi form cliccando fuori
+        overlay.addEventListener("click", function (e) {
+          if (e.target === overlay) {
+            hideMemoForm();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
