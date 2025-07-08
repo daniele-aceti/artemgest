@@ -87,9 +87,11 @@
           >
           </div>
           <div class="text-sm text-gray-400 mt-1 text-center">
-            Numero totale delle fatture scaduete nel mese
+            Numero totale delle fatture scadute nel mese
           </div>
         </div>
+
+        <!-- Fatture in Attesa -->
         <div
           class="bg-white rounded-xl shadow-soft p-6 flex flex-col justify-center items-center"
         >
@@ -107,6 +109,24 @@
             Numero totale delle fatture in attesa nel mese
           </div>
         </div>
+
+         <div
+          class="bg-white rounded-xl shadow-soft p-6 flex flex-col justify-center items-center"
+        >
+          <div
+            class="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wide"
+          >
+            Fatture In Attesa
+          </div>
+          <div
+            th:text="${fatturatoMeseInAttesa}"
+            class="text-3xl font-bold text-gray-900"
+          ></div>
+          <div class="text-sm text-gray-400 mt-1 text-center">
+            Importo totale fatture in attesa di pagamento
+          </div>
+        </div>
+
       </div>
     </main>
     <!-- Lucide Icons -->

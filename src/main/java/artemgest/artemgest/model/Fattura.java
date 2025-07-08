@@ -1,5 +1,6 @@
 package artemgest.artemgest.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +33,7 @@ public class Fattura {
     private Double importo;
 
     @Column(nullable = false)
-    private Double iva;
+    private BigDecimal iva;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -101,13 +102,14 @@ public class Fattura {
         this.importo = importo;
     }
 
-    public Double getIva() {
+    public BigDecimal getIva() {
         return iva;
     }
 
-    public void setIva(Double iva) {
+    public void setIva(BigDecimal iva) {
         this.iva = iva;
     }
+
 
 
 }

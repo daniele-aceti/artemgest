@@ -1,5 +1,6 @@
 package artemgest.artemgest.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.model.Fattura;
+import artemgest.artemgest.model.StatoIva;
 import artemgest.artemgest.repository.ClienteRepository;
 import artemgest.artemgest.repository.FatturaRepository;
 
@@ -26,13 +28,14 @@ public class FatturaService {
     }
 
     public Fattura creaNuovaFattura(Fattura fattura, Long idCliente) {
-        if (fattura.getStatoIva().equals("ESENTE")) {
-            fattura.setIva(0.0);
-        } else if (fattura.getStatoIva().equals("RIDOTTA")) {
-            fattura.setIva(0.4);
+        if (fattura.getStatoIva() == StatoIva.ESENTE) {
+            fattura.setIva(BigDecimal.ZERO);
+        } else if (fattura.getStatoIva() == StatoIva.RIDOTTA) {
+            fattura.setIva(new BigDecimal("0.04"));
         } else {
-            fattura.setIva(0.22);
+            fattura.setIva(new BigDecimal("0.22"));
         }
+
         LocalDate dataDiOggi = LocalDate.now();
         fattura.setDataInizioFattura(dataDiOggi);
         fattura.setDataScadenzaFattura(fattura.getDataInizioFattura().plusDays(30));
@@ -52,7 +55,7 @@ public class FatturaService {
         return fatturaRepository.findById(id).get();
     }
 
-    public Fattura cambiaStatoFattura(Long id, Fattura formFattura){
+    public Fattura cambiaStatoFattura(Long id, Fattura formFattura) {
         Fattura fattura = fatturaRepository.findById(id).get();
         fattura.setStatoFattura(formFattura.getStatoFattura());
         return fatturaRepository.save(fattura);

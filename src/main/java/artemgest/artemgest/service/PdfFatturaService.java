@@ -3,6 +3,8 @@ package artemgest.artemgest.service;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -46,7 +48,7 @@ public class PdfFatturaService {
         if (nuovaFattura) {
             fattura.setCliente(cliente);
             fatturaCompleta = fatturaService.creaNuovaFattura(fattura, idCliente);
-        }else{
+        } else {
             fatturaCompleta = fattura;
         }
 
@@ -150,9 +152,9 @@ public class PdfFatturaService {
             nextX += colWidths[2];
             content.beginText();
             content.newLineAtOffset(nextX + 2, y + 5);
-            if (fatturaCompleta.getIva() == 0.22) {
+            if (fatturaCompleta.getIva().compareTo(new BigDecimal("0.22")) == 0) {
                 content.showText("22%");
-            } else if (fatturaCompleta.getIva() == 0.04) {
+            } else if (fatturaCompleta.getIva().compareTo(new BigDecimal("0.04")) == 0) {
                 content.showText("4%");
             } else {
                 content.showText("ESENTE");
@@ -180,7 +182,12 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("IVA");
             content.newLineAtOffset(100, 0);
-            content.showText(String.format("%.2f €", (fatturaCompleta.getImporto() * fatturaCompleta.getIva())));
+
+            BigDecimal importo = BigDecimal.valueOf(fatturaCompleta.getImporto());
+            BigDecimal iva = fatturaCompleta.getIva();
+            BigDecimal importoIva = importo.multiply(iva).setScale(2, RoundingMode.HALF_UP);
+
+            content.showText(importoIva.toPlainString() + " €");
             content.endText();
 
             y -= 15;
@@ -189,11 +196,9 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("Totale");
             content.newLineAtOffset(100, 0);
-            if (fatturaCompleta.getIva() != 0.00) {
-                content.showText(String.format("%.2f €", (fatturaCompleta.getImporto() * fatturaCompleta.getIva()) + fatturaCompleta.getImporto()));
-            } else {
-                content.showText(String.valueOf(fatturaCompleta.getImporto()));
-            }
+
+            BigDecimal totale = importo.add(importoIva).setScale(2, RoundingMode.HALF_UP);
+            content.showText(totale.toPlainString() + " €");
             content.endText();
 
             // Footer bancario
