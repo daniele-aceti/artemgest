@@ -23,13 +23,21 @@ public class DashboardController {
         this.eventService = eventService;
     }
 
+    /* 
+     * nei metodi fattureDelMese e fattureInAttesa viene usato un booleano
+     * true per l'importo false per il numero
+     */
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         List<String> notifications = eventService.getUpcomingEventNotifications();
         model.addAttribute("notifications", notifications);
-        dashboardService.listaImporti(model);
+        model.addAttribute("fatturatoMese", dashboardService.fattureDelMese(true));
+        model.addAttribute("numeroFattureMese", dashboardService.fattureDelMese(false));
+        model.addAttribute("numeroFattureScaduteMese", dashboardService.fattureScadute());
+        model.addAttribute("numeroFattureInAttesaMese", dashboardService.fattureInAttesa(false));
+        model.addAttribute("fatturatoMeseInAttesa", dashboardService.fattureInAttesa(true));
         return "dashboard";
     }
-
 
 }
