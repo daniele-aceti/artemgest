@@ -2,6 +2,7 @@ package artemgest.artemgest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +27,6 @@ public class ClienteController {
         this.fatturaService = fatturaService;
     }
 
-
-
     @GetMapping
     public String presentazione() {
         return "presentazione";
@@ -46,7 +45,11 @@ public class ClienteController {
     }
 
     @PostMapping("/nuovoCliente")
-    public String nuovoClientePost(@Valid @ModelAttribute("nuovoCliente") Cliente clienteForm, Model model) {
+    public String nuovoClientePost(@Valid @ModelAttribute("nuovoCliente") Cliente clienteForm, BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            return "formCliente";
+        }
         clienteService.creaNuovoCliente(clienteForm);
         return "redirect:/dettaglioCliente/" + clienteForm.getId();
     }
@@ -57,7 +60,6 @@ public class ClienteController {
         model.addAttribute("nuovaFattura", new Fattura());
         return "formFattura";
     }
-
 
     @GetMapping("/dettaglioCliente/{id}")
     public String dettaglioCliente(@PathVariable Long id, Model model) {

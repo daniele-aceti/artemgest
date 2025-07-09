@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import artemgest.artemgest.exception.ClienteNotFoundException;
+import artemgest.artemgest.exception.FatturaNotFoundException;
 import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.model.Fattura;
 import artemgest.artemgest.model.StatoIva;
@@ -40,6 +42,9 @@ public class FatturaService {
         fattura.setDataInizioFattura(dataDiOggi);
         fattura.setDataScadenzaFattura(fattura.getDataInizioFattura().plusDays(30));
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+        if (cliente.isEmpty()) {
+            throw new ClienteNotFoundException(idCliente);
+        }
         fattura.setCliente(cliente.get());
         return fatturaRepository.save(fattura);
     }
@@ -52,13 +57,20 @@ public class FatturaService {
     }
 
     public Fattura fattura(Long id) {
-        return fatturaRepository.findById(id).get();
+        Optional<Fattura> optFattura = fatturaRepository.findById(id);
+        if (optFattura.isEmpty()) {
+            throw new FatturaNotFoundException(id);
+        }
+        return optFattura.get();
     }
 
     public Fattura cambiaStatoFattura(Long id, Fattura formFattura) {
-        Fattura fattura = fatturaRepository.findById(id).get();
-        fattura.setStatoFattura(formFattura.getStatoFattura());
-        return fatturaRepository.save(fattura);
+        Optional<Fattura> fattura = fatturaRepository.findById(id);
+        if(fattura.isEmpty()){
+            throw new FatturaNotFoundException(id);
+        }
+        fattura.get().setStatoFattura(formFattura.getStatoFattura());
+        return fatturaRepository.save(fattura.get());
     }
 
 }

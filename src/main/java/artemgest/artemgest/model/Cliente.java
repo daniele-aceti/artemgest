@@ -20,6 +20,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Inserire ragione sociale corretta")
     @Column(nullable = false)
     private String ragioneSociale;
 

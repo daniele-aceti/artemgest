@@ -66,7 +66,14 @@
             placeholder="Es. 1500.00"
             required
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('importo')}"
+            th:each="err : ${#fields.errors('importo')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- IVA -->
@@ -79,12 +86,19 @@
             th:field="*{statoIva}"
             required
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            th:errorClass="border-red-500"
           >
-            <option value="" disabled selected>Seleziona IVA</option>
+            <option value="" disabled th:selected="*{statoIva == null}">Seleziona IVA</option>
             <option value="IVA22">IVA 22%</option>
             <option value="ESENTE">Esente</option>
             <option value="RIDOTTA">Ridotta 4%</option>
           </select>
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('statoIva')}"
+            th:each="err : ${#fields.errors('statoIva')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Select per cambiare stato -->
@@ -101,13 +115,20 @@
             th:field="*{statoFattura}"
             required
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            th:errorClass="border-red-500"
           >
-            <option value="" disabled hidden th:selected="${nuovaFattura.statoFattura}">
+            <option value="" disabled th:selected="*{statoFattura == null}">
               Stato
             </option>
             <option th:value="IN_ATTESA">In Attesa</option>
             <option th:value="PAGATO">Pagato</option>
           </select>
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('statoFattura')}"
+            th:each="err : ${#fields.errors('statoFattura')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Pulsante invio -->

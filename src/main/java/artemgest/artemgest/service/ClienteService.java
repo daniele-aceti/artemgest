@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import artemgest.artemgest.exception.ClienteNotFoundException;
 import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.repository.ClienteRepository;
 
@@ -34,7 +35,11 @@ public class ClienteService {
         return clienteRepository.findByRagioneSocialeContainingIgnoreCase(param);
     }
 
-    public Cliente dettaglioCLiente(Long idCLiente){
-       return clienteRepository.findById(idCLiente).get();
+    public Cliente dettaglioCLiente(Long idCliente) {
+        Optional<Cliente> clienteOpt = clienteRepository.findById(idCliente);
+        if (clienteOpt.isEmpty()) {
+            throw new ClienteNotFoundException(idCliente);
+        }
+        return clienteOpt.get();
     }
 }

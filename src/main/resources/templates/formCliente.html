@@ -21,11 +21,9 @@
       >
         <!-- Ragione Sociale -->
         <div class="col-span-1 md:col-span-2">
-          <label
-            for="ragioneSociale"
-            class="block text-sm font-medium text-gray-700"
-            >Ragione Sociale</label
-          >
+          <label for="ragioneSociale" class="block text-sm font-medium text-gray-700">
+            Ragione Sociale
+          </label>
           <input
             th:field="*{ragioneSociale}"
             type="text"
@@ -33,16 +31,21 @@
             name="ragioneSociale"
             placeholder="Es. ArtemGest S.r.l."
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('ragioneSociale')}"
+            th:each="err : ${#fields.errors('ragioneSociale')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Partita IVA -->
         <div>
-          <label
-            for="pIvaCFiscale"
-            class="block text-sm font-medium text-gray-700"
-            >P. IVA / CODICE FISCALE</label
-          >
+          <label for="pIvaCFiscale" class="block text-sm font-medium text-gray-700">
+            P. IVA / CODICE FISCALE
+          </label>
           <input
             th:field="*{pIvaCFiscale}"
             type="text"
@@ -50,14 +53,21 @@
             name="pIvaCFiscale"
             placeholder="Es. 12345678901 o RSSMRA85M01H501Z"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('pIvaCFiscale')}"
+            th:each="err : ${#fields.errors('pIvaCFiscale')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Email -->
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Email</label
-          >
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Email
+          </label>
           <input
             th:field="*{email}"
             type="email"
@@ -65,14 +75,21 @@
             name="email"
             placeholder="cliente@email.com"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('email')}"
+            th:each="err : ${#fields.errors('email')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Telefono -->
         <div>
-          <label for="telefono" class="block text-sm font-medium text-gray-700"
-            >Telefono</label
-          >
+          <label for="telefono" class="block text-sm font-medium text-gray-700">
+            Telefono
+          </label>
           <input
             th:field="*{telefono}"
             type="text"
@@ -80,14 +97,21 @@
             name="telefono"
             placeholder="Es. 3201234567"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('telefono')}"
+            th:each="err : ${#fields.errors('telefono')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Indirizzo -->
         <div class="col-span-1 md:col-span-2">
-          <label for="indirizzo" class="block text-sm font-medium text-gray-700"
-            >Indirizzo</label
-          >
+          <label for="indirizzo" class="block text-sm font-medium text-gray-700">
+            Indirizzo
+          </label>
           <input
             th:field="*{indirizzo}"
             type="text"
@@ -95,14 +119,21 @@
             name="indirizzo"
             placeholder="Via Roma 12"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('indirizzo')}"
+            th:each="err : ${#fields.errors('indirizzo')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Città -->
         <div>
-          <label for="citta" class="block text-sm font-medium text-gray-700"
-            >Città</label
-          >
+          <label for="citta" class="block text-sm font-medium text-gray-700">
+            Città
+          </label>
           <input
             th:field="*{citta}"
             type="text"
@@ -110,14 +141,21 @@
             name="citta"
             placeholder="Milano"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('citta')}"
+            th:each="err : ${#fields.errors('citta')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- CAP -->
         <div>
-          <label for="cap" class="block text-sm font-medium text-gray-700"
-            >CAP</label
-          >
+          <label for="cap" class="block text-sm font-medium text-gray-700">
+            CAP
+          </label>
           <input
             th:field="*{cap}"
             type="text"
@@ -125,14 +163,21 @@
             name="cap"
             placeholder="20100"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('cap')}"
+            th:each="err : ${#fields.errors('cap')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Provincia -->
         <div class="col-span-1 md:col-span-2">
-          <label for="provincia" class="block text-sm font-medium text-gray-700"
-            >Provincia</label
-          >
+          <label for="provincia" class="block text-sm font-medium text-gray-700">
+            Provincia
+          </label>
           <input
             th:field="*{provincia}"
             type="text"
@@ -140,7 +185,14 @@
             name="provincia"
             placeholder="MI"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition"
+            th:errorClass="border-red-500"
           />
+          <p
+            class="text-sm text-red-500 mt-1"
+            th:if="${#fields.hasErrors('provincia')}"
+            th:each="err : ${#fields.errors('provincia')}"
+            th:text="${err}"
+          ></p>
         </div>
 
         <!-- Pulsante invio -->
@@ -150,9 +202,7 @@
             class="w-full relative inline-block px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all duration-300 overflow-hidden"
           >
             <span class="relative z-10">Salva Cliente</span>
-            <span
-              class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"
-            ></span>
+            <span class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"></span>
           </button>
         </div>
 
@@ -164,9 +214,7 @@
             class="w-full relative inline-block px-6 py-3 text-gray-800 font-medium bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 rounded-lg shadow-md hover:from-gray-400 hover:to-gray-300 transition-all duration-300 overflow-hidden"
           >
             <span class="relative z-10">Indietro</span>
-            <span
-              class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"
-            ></span>
+            <span class="absolute inset-0 bg-white opacity-10 blur-sm hover:blur-none transition-all"></span>
           </button>
         </div>
       </form>

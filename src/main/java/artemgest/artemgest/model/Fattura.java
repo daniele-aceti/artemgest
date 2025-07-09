@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Fattura {
@@ -29,6 +30,7 @@ public class Fattura {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataScadenzaFattura;
 
+    @Size(min = 0)
     @Column(nullable = false)
     private Double importo;
 
@@ -93,7 +95,6 @@ public class Fattura {
         this.id = id;
     }
 
-
     public Double getImporto() {
         return importo;
     }
@@ -109,7 +110,5 @@ public class Fattura {
     public void setIva(BigDecimal iva) {
         this.iva = iva;
     }
-
-
 
 }
