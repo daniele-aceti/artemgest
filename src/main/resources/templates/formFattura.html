@@ -14,7 +14,7 @@
       </h2>
 
       <form
-        th:action="@{'/genera-fattura/' + ${cliente.id}}"
+        th:action="@{'/genera-fattura/' + ${cliente.id} + '/' + ${idOrdine}}"
         th:object="${nuovaFattura}"
         method="post"
         class="grid grid-cols-1 md:grid-cols-2 gap-6"
@@ -53,29 +53,6 @@
           />
         </div>
 
-        <!-- Importo -->
-        <div>
-          <label for="importo" class="block text-sm font-medium text-gray-700"
-            >Importo</label
-          >
-          <input
-            type="number"
-            step="0.01"
-            id="importo"
-            th:field="*{importo}"
-            placeholder="Es. 1500.00"
-            required
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            th:errorClass="border-red-500"
-          />
-          <p
-            class="text-sm text-red-500 mt-1"
-            th:if="${#fields.hasErrors('importo')}"
-            th:each="err : ${#fields.errors('importo')}"
-            th:text="${err}"
-          ></p>
-        </div>
-
         <!-- IVA -->
         <div>
           <label for="iva" class="block text-sm font-medium text-gray-700">
@@ -88,7 +65,9 @@
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
             th:errorClass="border-red-500"
           >
-            <option value="" disabled th:selected="*{statoIva == null}">Seleziona IVA</option>
+            <option value="" disabled th:selected="*{statoIva == null}">
+              Seleziona IVA
+            </option>
             <option value="IVA22">IVA 22%</option>
             <option value="ESENTE">Esente</option>
             <option value="RIDOTTA">Ridotta 4%</option>

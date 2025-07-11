@@ -1,7 +1,6 @@
 package artemgest.artemgest.service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,10 +79,10 @@ public class DashboardService {
         BigDecimal totale = BigDecimal.ZERO;
         if (importoONumero) {
             for (Fattura fattura : fatture) {
-                BigDecimal importo = BigDecimal.valueOf(fattura.getImporto());
-                BigDecimal iva = fattura.getIva().add(BigDecimal.ONE);
-                totale = totale.add(importo.multiply(iva).setScale(2, RoundingMode.HALF_UP));
-            }
+/*                 BigDecimal importo = BigDecimal.valueOf(fattura.getImporto());
+ */                BigDecimal iva = fattura.getIva().add(BigDecimal.ONE);
+/*                 totale = totale.add(importo.multiply(iva).setScale(2, RoundingMode.HALF_UP));
+ */            }
             return totale.doubleValue();
         }
         return fatture.size();

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aggiungi Prodotto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+  <div class="max-w-xl w-full bg-white p-10 rounded-xl shadow-xl">
+    <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Aggiungi Prodotto</h2>
+
+    <form
+      th:action="@{/prodotto}"
+      th:object="${prodotto}"
+      method="post"
+      class="grid grid-cols-1 gap-6"
+    >
+      <!-- Nome -->
+      <div>
+        <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
+        <input
+          th:field="*{nome}"
+          type="text"
+          id="nome"
+          class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          th:errorClass="border-red-500"
+        />
+        <p class="text-sm text-red-500 mt-1" th:if="${#fields.hasErrors('nome')}" th:each="err : ${#fields.errors('nome')}" th:text="${err}"></p>
+      </div>
+
+      <!-- Prezzo -->
+      <div>
+        <label for="prezzo" class="block text-sm font-medium text-gray-700">Prezzo</label>
+        <input
+          th:field="*{prezzo}"
+          type="number"
+          step="0.01"
+          id="prezzo"
+          class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          th:errorClass="border-red-500"
+        />
+        <p class="text-sm text-red-500 mt-1" th:if="${#fields.hasErrors('prezzo')}" th:each="err : ${#fields.errors('prezzo')}" th:text="${err}"></p>
+      </div>
+
+      <!-- Codice UPC -->
+      <div>
+        <label for="UPC" class="block text-sm font-medium text-gray-700">Codice UPC</label>
+        <input
+          th:field="*{UPC}"
+          type="text"
+          id="UPC"
+          class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          th:errorClass="border-red-500"
+        />
+        <p class="text-sm text-red-500 mt-1" th:if="${#fields.hasErrors('UPC')}" th:each="err : ${#fields.errors('UPC')}" th:text="${err}"></p>
+      </div>
+
+      <!-- Quantità disponibile -->
+      <div>
+        <label for="quantitaDisponibile" class="block text-sm font-medium text-gray-700">Quantità Disponibile</label>
+        <input
+          th:field="*{quantitaDisponibile}"
+          type="number"
+          min="0"
+          id="quantitaDisponibile"
+          class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          th:errorClass="border-red-500"
+        />
+        <p class="text-sm text-red-500 mt-1" th:if="${#fields.hasErrors('quantitaDisponibile')}" th:each="err : ${#fields.errors('quantitaDisponibile')}" th:text="${err}"></p>
+      </div>
+
+      <!-- Pulsante invio -->
+      <div class="pt-4">
+        <button
+          type="submit"
+          class="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition"
+        >
+          Salva Prodotto
+        </button>
+      </div>
+
+      <!-- Pulsante Indietro -->
+      <div>
+        <button
+          type="button"
+          onclick="history.back()"
+          class="w-full px-6 py-3 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400 transition"
+        >
+          Indietro
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -23,38 +24,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import artemgest.artemgest.model.Cliente;
+import artemgest.artemgest.model.DettaglioOrdine;
 import artemgest.artemgest.model.Fattura;
+import artemgest.artemgest.model.Prodotto;
 
 @Service
 public class PdfFatturaService {
 
     private final FatturaService fatturaService;
-
     private final ClienteService clienteService;
+    private final OrdineService ordineService;
 
     @Autowired
-    public PdfFatturaService(FatturaService fatturaService, ClienteService clienteService) {
+    public PdfFatturaService(FatturaService fatturaService, ClienteService clienteService, OrdineService ordineService) {
         this.fatturaService = fatturaService;
         this.clienteService = clienteService;
+        this.ordineService = ordineService;
     }
 
-    public ResponseEntity<byte[]> generaPdfFattura(Long idCliente, Fattura fattura, boolean nuovaFattura) throws IOException {
-
+    public ResponseEntity<byte[]> generaPdfFattura(Long idOrdine, Long idCliente, Fattura fattura, boolean nuovaFattura) throws IOException {
         Optional<Cliente> clienteOpt = clienteService.cliente(idCliente);
+        List<DettaglioOrdine> dettaglioOrdine = ordineService.listaProdottoFattura(idOrdine);
         Cliente cliente = clienteOpt.orElseThrow(() -> new IllegalArgumentException("Cliente non trovato con ID: " + idCliente));
 
-        Fattura fatturaCompleta = new Fattura();
-
-        if (nuovaFattura) {
-            fattura.setCliente(cliente);
-            fatturaCompleta = fatturaService.creaNuovaFattura(fattura, idCliente);
-        } else {
-            fatturaCompleta = fattura;
-        }
+        Fattura fatturaCompleta = nuovaFattura ? fatturaService.creaNuovaFattura(fattura, idCliente) : fattura;
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         try (PDDocument doc = new PDDocument()) {
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
@@ -99,7 +96,7 @@ public class PdfFatturaService {
             content.showText("P.I. " + cliente.getpIvaCFiscale());
             content.endText();
 
-            // Riga intestazione tabella
+            // Tabella prodotti
             y = 620;
             float x = 50;
             float rowHeight = 20;
@@ -107,10 +104,11 @@ public class PdfFatturaService {
             String[] headers = {"Quantità", "Descrizione", "Prezzo unitario", "IVA", "Importo"};
             float[] colWidths = {60, 200, 100, 50, 80};
 
-            content.setStrokingColor(Color.BLACK);
-            content.setLineWidth(0.5f);
+            // Header
+            content.setNonStrokingColor(Color.LIGHT_GRAY);
             content.addRect(x, y, 490, rowHeight);
-            content.stroke();
+            content.fill();
+            content.setNonStrokingColor(Color.BLACK);
 
             float nextX = x;
             for (int i = 0; i < headers.length; i++) {
@@ -122,59 +120,46 @@ public class PdfFatturaService {
                 nextX += colWidths[i];
             }
 
-            // Riga dati
             y -= rowHeight;
-            content.setFont(PDType1Font.HELVETICA, 12);
-            content.addRect(x, y, 490, rowHeight);
-            content.stroke();
+            BigDecimal imponibileTotale = BigDecimal.ZERO;
+            for (DettaglioOrdine dettaglio : dettaglioOrdine) {
+                Prodotto p = dettaglio.getProdotto();
+                int quantita = dettaglio.getQuantita();
+                BigDecimal prezzo = BigDecimal.valueOf(p.getPrezzo());
+                BigDecimal totaleRiga = prezzo.multiply(BigDecimal.valueOf(quantita));
+                imponibileTotale = imponibileTotale.add(totaleRiga);
 
-            nextX = x;
-            content.beginText();
-            content.newLineAtOffset(nextX + 2, y + 5);
-            content.showText("1");
-            //content.showText(String.format("%.2f", fatturaCompleta.getQuantita()));
-            content.endText();
+                nextX = x;
+                String[] valori = {
+                        String.valueOf(quantita),
+                        p.getNome(),
+                        String.format("%.2f €", prezzo),
+                        fatturaCompleta.getIva().multiply(BigDecimal.valueOf(100)).intValue() + "%",
+                        String.format("%.2f €", totaleRiga)
+                };
 
-            nextX += colWidths[0];
-            content.beginText();
-            content.newLineAtOffset(nextX + 2, y + 5);
-            content.showText("descrizone prova");
-            //content.showText(fatturaCompleta.getDescrizione());
-            content.endText();
-
-            nextX += colWidths[1];
-            content.beginText();
-            content.newLineAtOffset(nextX + 2, y + 5);
-            content.showText("importo prova");
-            //content.showText(String.format("%.2f €", fatturaCompleta.getPrezzoUnitario()));
-            content.endText();  //TODO IN ATTESA DELLA SEZIONE ORDINI
-
-            nextX += colWidths[2];
-            content.beginText();
-            content.newLineAtOffset(nextX + 2, y + 5);
-            if (fatturaCompleta.getIva().compareTo(new BigDecimal("0.22")) == 0) {
-                content.showText("22%");
-            } else if (fatturaCompleta.getIva().compareTo(new BigDecimal("0.04")) == 0) {
-                content.showText("4%");
-            } else {
-                content.showText("ESENTE");
+                for (int i = 0; i < valori.length; i++) {
+                    content.beginText();
+                    content.setFont(PDType1Font.HELVETICA, 11);
+                    content.newLineAtOffset(nextX + 2, y + 5);
+                    content.showText(valori[i]);
+                    content.endText();
+                    nextX += colWidths[i];
+                }
+                y -= rowHeight;
             }
-            content.endText();
 
-            nextX += colWidths[3];
-            content.beginText();
-            content.newLineAtOffset(nextX + 2, y + 5);
-            content.showText(String.format("%.2f €", fatturaCompleta.getImporto()));
-            content.endText();
+            BigDecimal iva = imponibileTotale.multiply(fatturaCompleta.getIva()).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal totale = imponibileTotale.add(iva);
 
             // Totali
-            y -= 50;
+            y -= 20;
             content.beginText();
             content.setFont(PDType1Font.HELVETICA, 12);
             content.newLineAtOffset(350, y);
             content.showText("Imponibile");
             content.newLineAtOffset(100, 0);
-            content.showText(String.format("%.2f €", fatturaCompleta.getImporto()));
+            content.showText(String.format("%.2f €", imponibileTotale));
             content.endText();
 
             y -= 15;
@@ -182,12 +167,7 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("IVA");
             content.newLineAtOffset(100, 0);
-
-            BigDecimal importo = BigDecimal.valueOf(fatturaCompleta.getImporto());
-            BigDecimal iva = fatturaCompleta.getIva();
-            BigDecimal importoIva = importo.multiply(iva).setScale(2, RoundingMode.HALF_UP);
-
-            content.showText(importoIva.toPlainString() + " €");
+            content.showText(String.format("%.2f €", iva));
             content.endText();
 
             y -= 15;
@@ -196,33 +176,17 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("Totale");
             content.newLineAtOffset(100, 0);
-
-            BigDecimal totale = importo.add(importoIva).setScale(2, RoundingMode.HALF_UP);
-            content.showText(totale.toPlainString() + " €");
+            content.showText(String.format("%.2f €", totale));
             content.endText();
 
-            // Footer bancario
-            y = 120;
+            // Footer
+            y = 100;
             content.beginText();
             content.setFont(PDType1Font.HELVETICA, 10);
             content.newLineAtOffset(50, y);
-            content.showText("Coordinate bancarie");
+            content.showText("Coordinate bancarie: Daniele Aceti, Banca di Roma, Conto 0123 4567 8901");
             content.newLineAtOffset(0, -12);
-            content.showText("Daniele Aceti");
-            content.newLineAtOffset(0, -12);
-            content.showText("Banca di Roma");
-            content.newLineAtOffset(0, -12);
-            content.showText("Conto 0123 4567 8901");
-            content.endText();
-
-            // Footer contatto
-            y = 50;
-            content.beginText();
-            content.setFont(PDType1Font.HELVETICA, 9);
-            content.newLineAtOffset(50, y);
-            content.showText("Tel. 123-456-7890 | Email: prova@artemgest.com");
-            content.newLineAtOffset(0, -10);
-            content.showText("9-3/4 Platform, Any City");
+            content.showText("Contatti: Tel. 123-456-7890 | Email: prova@artemgest.com");
             content.endText();
 
             content.close();

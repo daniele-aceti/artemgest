@@ -1,9 +1,11 @@
 package artemgest.artemgest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,17 +21,13 @@ public class Ordine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "oridne")
+    @OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    private List<DettaglioOrdine> dettaglioOrdine;
+    private List<DettaglioOrdine> dettagli = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "fattura_id", nullable = false)
-    private Fattura fattura;
 
     public Long getId() {
         return id;
@@ -37,14 +35,6 @@ public class Ordine {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<DettaglioOrdine> getDettaglioOrdine() {
-        return dettaglioOrdine;
-    }
-
-    public void setDettaglioOrdine(List<DettaglioOrdine> dettaglioOrdine) {
-        this.dettaglioOrdine = dettaglioOrdine;
     }
 
     public Cliente getCliente() {
@@ -55,12 +45,12 @@ public class Ordine {
         this.cliente = cliente;
     }
 
-    public Fattura getFattura() {
-        return fattura;
+    public List<DettaglioOrdine> getDettagli() {
+        return dettagli;
     }
 
-    public void setFattura(Fattura fattura) {
-        this.fattura = fattura;
+    public void setDettagli(List<DettaglioOrdine> dettagli) {
+        this.dettagli = dettagli;
     }
 
 }

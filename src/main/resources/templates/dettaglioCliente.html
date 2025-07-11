@@ -61,10 +61,17 @@
         </a>
 
         <a
-          th:href="@{/nuovaFattura/{id}(id=${cliente.id})}"
+          th:href="@{/ordine/{id}(id=${cliente.id})}"
           class="px-6 py-3 bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] text-gray-800 font-medium rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all"
         >
-          Crea Fattura
+          Crea Nuovo Ordine
+        </a>
+
+           <a
+          th:href="@{/listaOrdini/{id}(id=${cliente.id})}"
+          class="px-6 py-3 bg-gradient-to-r from-[#D6C6B8] via-[#E9DCC9] to-[#F5E8D8] text-gray-800 font-medium rounded-lg shadow-md hover:from-[#E9DCC9] hover:to-[#D6C6B8] transition-all"
+        >
+          Lista Ordini
         </a>
       </div>
     </div>

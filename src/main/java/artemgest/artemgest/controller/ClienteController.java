@@ -13,18 +13,22 @@ import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.model.Fattura;
 import artemgest.artemgest.service.ClienteService;
 import artemgest.artemgest.service.FatturaService;
+import artemgest.artemgest.service.OrdineService;
 import jakarta.validation.Valid;
 
 @Controller
 public class ClienteController {
 
+    private final OrdineService ordineService;
+
     private final FatturaService fatturaService;
 
     private final ClienteService clienteService;
 
-    public ClienteController(ClienteService clienteService, FatturaService fatturaService) {
+    public ClienteController(ClienteService clienteService, FatturaService fatturaService, OrdineService ordineService) {
         this.clienteService = clienteService;
         this.fatturaService = fatturaService;
+        this.ordineService = ordineService;
     }
 
     @GetMapping
@@ -54,8 +58,9 @@ public class ClienteController {
         return "redirect:/dettaglioCliente/" + clienteForm.getId();
     }
 
-    @GetMapping("/nuovaFattura/{idCliente}")
-    public String nuovaFattura(@PathVariable Long idCliente, Model model) {
+    @GetMapping("/nuovaFattura/{idCliente}/{idOrdine}")
+    public String nuovaFattura(@PathVariable Long idOrdine, @PathVariable Long idCliente, Model model) {
+        model.addAttribute("idOrdine", idOrdine);
         model.addAttribute("cliente", clienteService.dettaglioCLiente(idCliente));
         model.addAttribute("nuovaFattura", new Fattura());
         return "formFattura";

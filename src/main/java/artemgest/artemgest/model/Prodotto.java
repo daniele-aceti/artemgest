@@ -10,7 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Prodotto {
@@ -28,12 +28,14 @@ public class Prodotto {
     @Column(nullable = false)
     private String UPC;
 
+    @NotNull
+    @Column(nullable = false)
+    private int quantitaDisponibile;
+
     @OneToMany(mappedBy = "prodotto")
     @JsonBackReference
     private List<DettaglioOrdine> dettaglioOrdine;
 
-    @OneToOne(mappedBy = "prodotto")
-    private Magazzino magazzino;
 
     public Long getId() {
         return id;
@@ -74,5 +76,14 @@ public class Prodotto {
     public void setDettaglioOrdine(List<DettaglioOrdine> dettaglioOrdine) {
         this.dettaglioOrdine = dettaglioOrdine;
     }
+
+    public int getQuantitaDisponibile() {
+        return quantitaDisponibile;
+    }
+
+    public void setQuantitaDisponibile(int quantitaDisponibile) {
+        this.quantitaDisponibile = quantitaDisponibile;
+    }
+
 
 }

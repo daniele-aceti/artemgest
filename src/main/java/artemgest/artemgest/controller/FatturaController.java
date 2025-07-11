@@ -36,21 +36,23 @@ public class FatturaController {
         this.pdfFatturaService = pdfFatturaService;
     }
 
-    @PostMapping("/genera-fattura/{idCliente}")
+
+    @PostMapping("/genera-fattura/{idCliente}/{idOrdine}")
     public ResponseEntity<byte[]> generaPdfFattura(
+            @PathVariable Long idOrdine,
             @PathVariable Long idCliente,
             @ModelAttribute("nuovaFattura") Fattura formFattura
     ) throws IOException {
-        return pdfFatturaService.generaPdfFattura(idCliente, formFattura, true);
+        return pdfFatturaService.generaPdfFattura(idOrdine, idCliente, formFattura, true);
     }
 
-    @PostMapping("/genera-fattura/{idCliente}/{idFattura}")
+/*     @PostMapping("/genera-fattura/{idCliente}/{idFattura}")
     public ResponseEntity<byte[]> ristampaPdfFattura(
             @PathVariable Long idCliente,
             @PathVariable Long idFattura) throws IOException {
         Fattura fattura = fatturaService.fattura(idFattura);
         return pdfFatturaService.generaPdfFattura(idCliente, fattura, false);//esiste
-    }
+    } */
 
     @GetMapping("/fatture")
     public String tutteFatture(@RequestParam(name = "keyword", required = false) String param, Model model) {

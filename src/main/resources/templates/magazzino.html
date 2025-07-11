@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magazzino - ArtemGest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3B82F6",
+              dark: "#0F172A",
+              light: "#F8FAFC",
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(0, 0, 0, 0.05)",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-light text-dark font-sans antialiased">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+
+      <!-- Main content -->
+      <main class="flex-1 flex flex-col px-6 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-semibold text-dark">Magazzino</h1>
+          <a
+            href="/prodotto"
+            class="bg-primary text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+          >
+            + Aggiungi Prodotto
+          </a>
+        </div>
+
+        <!-- Lista vuota -->
+        <div th:if="${listaProdotti.isEmpty()}">
+          <div
+            class="bg-blue-100 text-blue-800 text-center px-4 py-3 rounded"
+            role="alert"
+          >
+            Nessun prodotto presente in magazzino.
+          </div>
+        </div>
+
+        <!-- Tabella Prodotti -->
+        <div
+          th:if="${not #lists.isEmpty(listaProdotti)}"
+          class="bg-white rounded-xl shadow-soft overflow-hidden"
+        >
+          <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-50 text-gray-600">
+              <tr>
+                <th class="px-6 py-3 text-left">Nome</th>
+                <th class="px-6 py-3 text-left">Prezzo</th>
+                <th class="px-6 py-3 text-left">Codice UPC</th>
+                <th class="px-6 py-3 text-left">Quantità Disponibile</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr
+                th:each="prodotto : ${listaProdotti}"
+                class="hover:bg-gray-50 transition"
+              >
+                <td th:text="${prodotto.nome}" class="px-6 py-4"></td>
+                <td
+                  th:text="${#numbers.formatDecimal(prodotto.prezzo, 1, 'COMMA', 2, 'POINT') + ' €'}"
+                  class="px-6 py-4"
+                ></td>
+                <td th:text="${prodotto.UPC}" class="px-6 py-4"></td>
+                <td class="px-6 py-4 text-green-600 font-medium">
+                  <input
+                    type="number"
+                    min="0"
+                    th:value="${prodotto.quantitaDisponibile}"
+                    th:attr="data-id=${prodotto.id}"
+                    class="quantita-input w-16 border rounded px-1 py-0.5"
+                    onchange="aggiornaQuantita(this)"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+
+    <script>
+      async function aggiornaQuantita(inputElem) {
+        const idProdotto = inputElem.getAttribute('data-id');
+        const nuovaQuantita = inputElem.value;
+
+        const formData = new FormData();
+        formData.append('quantitaDisponibile', nuovaQuantita);
+
+        try {
+          const response = await fetch(`/magazzino/${idProdotto}`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          });
+
+          if (!response.ok) {
+            alert('Errore durante l\'aggiornamento della quantità');
+          }
+        } catch (error) {
+          alert('Errore di rete o server: ' + error);
+        }
+      }
+    </script>
+  </body>
+</html>
