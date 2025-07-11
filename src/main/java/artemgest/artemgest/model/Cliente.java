@@ -55,6 +55,10 @@ public class Cliente {
     @JsonBackReference
     private List<Fattura> fatture;
 
+    @OneToMany(mappedBy = "cliente")
+    @JsonBackReference
+    private List<Ordine> ordine;
+
     public List<Fattura> getFatture() {
         return fatture;
     }
@@ -78,7 +82,6 @@ public class Cliente {
     public void setRagioneSociale(String ragioneSociale) {
         this.ragioneSociale = ragioneSociale;
     }
-    
 
     public String getEmail() {
         return email;
@@ -134,6 +137,14 @@ public class Cliente {
 
     public void setpIvaCFiscale(String pIvaCFiscale) {
         this.pIvaCFiscale = pIvaCFiscale;
+    }
+
+    public List<Ordine> getOrdine() {
+        return ordine;
+    }
+
+    public void setOrdine(List<Ordine> ordine) {
+        this.ordine = ordine;
     }
 
 }

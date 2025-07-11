@@ -2,8 +2,11 @@ package artemgest.artemgest.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -46,6 +50,10 @@ public class Fattura {
 
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
+
+    @OneToMany(mappedBy = "fattura")
+    @JsonBackReference
+    private List<Ordine> ordine;
 
     public StatoIva getStatoIva() {
         return statoIva;
@@ -109,6 +117,14 @@ public class Fattura {
 
     public void setIva(BigDecimal iva) {
         this.iva = iva;
+    }
+
+    public List<Ordine> getOrdine() {
+        return ordine;
+    }
+
+    public void setOrdine(List<Ordine> ordine) {
+        this.ordine = ordine;
     }
 
 }
