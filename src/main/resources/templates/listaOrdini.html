@@ -36,7 +36,10 @@
 
         <!-- Lista vuota -->
         <div th:if="${listaOrdini.isEmpty()}">
-          <div class="bg-blue-100 text-blue-800 text-center px-4 py-3 rounded" role="alert">
+          <div
+            class="bg-blue-100 text-blue-800 text-center px-4 py-3 rounded"
+            role="alert"
+          >
             Nessun ordine trovato per questo cliente.
           </div>
         </div>
@@ -50,10 +53,8 @@
             <thead class="bg-gray-50 text-gray-600">
               <tr>
                 <th class="px-6 py-3 text-left">N° Ordine</th>
+                <th class="px-6 py-3 text-left">Dettagli</th>
                 <th class="px-6 py-3 text-left">Data</th>
-                <th class="px-6 py-3 text-left">Prodotti</th>
-                <th class="px-6 py-3 text-left">Stato</th>
-                <th class="px-6 py-3 text-left">Azioni</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -61,10 +62,10 @@
                 th:each="ordine : ${listaOrdini}"
                 class="hover:bg-gray-50 transition"
               >
-                <td th:text="${ordine.id}" class="px-6 py-4 font-medium text-gray-800"></td>
-              <!--   <td th:text="${#temporals.format(ordine.dataOrdine, 'dd/MM/yyyy')}" class="px-6 py-4"></td>
-                <td th:text="${ordine.prodotti.size()}" class="px-6 py-4"></td>
-                <td th:text="${ordine.stato}" class="px-6 py-4"></td> -->
+                <td
+                  th:text="${ordine.id}"
+                  class="px-6 py-4 font-medium text-gray-800"
+                ></td>
                 <td class="px-6 py-4 space-x-2">
                   <a
                     th:href="@{/dettaglioOrdine/{id}(id=${ordine.id})}"
@@ -73,6 +74,10 @@
                     Dettagli
                   </a>
                 </td>
+   <!--              <td
+                  th:text="${ordine.fattura.dataInizioFattura}"
+                  class="px-6 py-4 font-medium text-gray-800"
+                ></td> -->
               </tr>
             </tbody>
           </table>

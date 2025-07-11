@@ -3,8 +3,6 @@ package artemgest.artemgest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +20,6 @@ public class Ordine {
     private Long id;
 
     @OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
     private List<DettaglioOrdine> dettagli = new ArrayList<>();
 
     @ManyToOne

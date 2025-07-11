@@ -57,7 +57,7 @@ public class OrdineController {
     }
 
     @PostMapping("/prodotto")
-    public String postMethodName(@Valid @ModelAttribute("prodotto") Prodotto formProdotto, BindingResult bindingResult) {
+    public String prodotto(@Valid @ModelAttribute("prodotto") Prodotto formProdotto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "formProdotto";
         }
@@ -72,7 +72,7 @@ public class OrdineController {
     }
 
     @PostMapping("/magazzino/{idProdotto}")
-    public String getMethodName(@PathVariable Long idProdotto, @ModelAttribute Prodotto formProdotto, Model model) {
+    public String magazzino(@PathVariable Long idProdotto, @ModelAttribute Prodotto formProdotto, Model model) {
         Optional<Prodotto> prodotto = ordineService.cercaProdotto(idProdotto);
         prodotto.get().setQuantitaDisponibile(formProdotto.getQuantitaDisponibile());
         ordineService.salvaProdotto(prodotto.get());

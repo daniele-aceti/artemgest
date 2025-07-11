@@ -42,26 +42,18 @@ public class OrdineService {
         return prodottoRepository.findAll();
     }
 
-    public Ordine salvaOrdine(Ordine ordine, Long idCliente) {
-        ordine.setCliente(clienteRepository.findById(idCliente).orElseThrow());
+    public void salvaOrdine(Ordine ordine, Long idCliente) {
+        Cliente cliente = clienteRepository.findById(idCliente).orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
+        ordine.setCliente(cliente);
 
-
-        Ordine ordineSalvato = ordineRepository.save(ordine);
-
-        for (DettaglioOrdine dettaglio : ordine.getDettagli()) {
-            Prodotto prodotto = dettaglio.getProdotto();
-            int disponibile = prodotto.getQuantitaDisponibile();
-            int ordinata = dettaglio.getQuantita();
-
-            if (ordinata > disponibile) {
-                throw new IllegalArgumentException("Prodotto " + prodotto.getNome() + " ha solo " + disponibile + " unità disponibili.");
+        // Collega ogni dettaglio all'ordine
+        if (ordine.getDettagli() != null) {
+            for (DettaglioOrdine dettaglio : ordine.getDettagli()) {
+                dettaglio.setOrdine(ordine);
             }
-
-            prodotto.setQuantitaDisponibile(disponibile - ordinata);
-            prodottoRepository.save(prodotto);
         }
 
-        return ordineSalvato;
+        ordineRepository.save(ordine);
     }
 
     public List<Ordine> listaOrdini(Cliente cliente) {
@@ -72,7 +64,7 @@ public class OrdineService {
         return new Prodotto();
     }
 
-    public Ordine salvaOrdine(Ordine ordine){
+    public Ordine salvaOrdine(Ordine ordine) {
         return ordineRepository.save(ordine);
     }
 
@@ -84,7 +76,7 @@ public class OrdineService {
         return dettaglioOrdineRepository.findDettagliByOrdineId(idOrdine);
     }
 
-    public Optional<Prodotto> cercaProdotto(Long idProdotto){
+    public Optional<Prodotto> cercaProdotto(Long idProdotto) {
         return prodottoRepository.findById(idProdotto);
     }
 }
