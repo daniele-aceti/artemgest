@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Fattura {
@@ -41,6 +42,13 @@ public class Fattura {
 
     @Enumerated(EnumType.STRING)
     private StatoFattura statoFattura;
+
+    @Column(nullable = false)
+    private BigDecimal importoTotale;
+
+    @OneToOne
+    @JoinColumn(name = "ordine_id", nullable = false)
+    private Ordine ordine;
 
     public StatoIva getStatoIva() {
         return statoIva;
@@ -96,6 +104,22 @@ public class Fattura {
 
     public void setIva(BigDecimal iva) {
         this.iva = iva;
+    }
+
+    public BigDecimal getImportoTotale() {
+        return importoTotale;
+    }
+
+    public void setImportoTotale(BigDecimal importoTotale) {
+        this.importoTotale = importoTotale;
+    }
+
+    public Ordine getOrdine() {
+        return ordine;
+    }
+
+    public void setOrdine(Ordine ordine) {
+        this.ordine = ordine;
     }
 
 }

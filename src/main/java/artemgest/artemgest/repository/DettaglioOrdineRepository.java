@@ -12,5 +12,6 @@ public interface DettaglioOrdineRepository extends JpaRepository<DettaglioOrdine
 
     @Query("SELECT d FROM DettaglioOrdine d WHERE d.ordine.id = :idOrdine")
     List<DettaglioOrdine> findDettagliByOrdineId(@Param("idOrdine") Long idOrdine);
+    
 
 }

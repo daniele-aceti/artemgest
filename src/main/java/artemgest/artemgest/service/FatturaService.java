@@ -66,11 +66,15 @@ public class FatturaService {
 
     public Fattura cambiaStatoFattura(Long id, Fattura formFattura) {
         Optional<Fattura> fattura = fatturaRepository.findById(id);
-        if(fattura.isEmpty()){
+        if (fattura.isEmpty()) {
             throw new FatturaNotFoundException(id);
         }
         fattura.get().setStatoFattura(formFattura.getStatoFattura());
         return fatturaRepository.save(fattura.get());
+    }
+
+    public Optional<Fattura> cercaFatturaOrdine(Long idOrdine){
+        return fatturaRepository.findFirstByOrdine_Id(idOrdine);
     }
 
 }

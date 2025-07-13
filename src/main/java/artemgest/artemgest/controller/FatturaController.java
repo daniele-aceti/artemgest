@@ -1,6 +1,7 @@
 package artemgest.artemgest.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,10 +19,13 @@ import artemgest.artemgest.model.Fattura;
 import artemgest.artemgest.model.StatoFattura;
 import artemgest.artemgest.service.ClienteService;
 import artemgest.artemgest.service.FatturaService;
+import artemgest.artemgest.service.OrdineService;
 import artemgest.artemgest.service.PdfFatturaService;
 
 @Controller
 public class FatturaController {
+
+    private final OrdineService ordineService;
 
     private final FatturaService fatturaService;
 
@@ -30,12 +34,12 @@ public class FatturaController {
     private final PdfFatturaService pdfFatturaService;
 
     @Autowired
-    public FatturaController(ClienteService clienteService, FatturaService fatturaService, PdfFatturaService pdfFatturaService) {
+    public FatturaController(ClienteService clienteService, FatturaService fatturaService, PdfFatturaService pdfFatturaService, OrdineService ordineService) {
         this.clienteService = clienteService;
         this.fatturaService = fatturaService;
         this.pdfFatturaService = pdfFatturaService;
+        this.ordineService = ordineService;
     }
-
 
     @PostMapping("/genera-fattura/{idCliente}/{idOrdine}")
     public ResponseEntity<byte[]> generaPdfFattura(
@@ -43,16 +47,28 @@ public class FatturaController {
             @PathVariable Long idCliente,
             @ModelAttribute("nuovaFattura") Fattura formFattura
     ) throws IOException {
+        formFattura.setOrdine(ordineService.cercaOrdine(idOrdine).get());
+        formFattura.setImportoTotale(BigDecimal.ZERO);
         return pdfFatturaService.generaPdfFattura(idOrdine, idCliente, formFattura, true);
     }
 
-/*     @PostMapping("/genera-fattura/{idCliente}/{idFattura}")
+    @PostMapping("/ristampa-fattura/{idCliente}/{idFattura}")
     public ResponseEntity<byte[]> ristampaPdfFattura(
             @PathVariable Long idCliente,
             @PathVariable Long idFattura) throws IOException {
-        Fattura fattura = fatturaService.fattura(idFattura);
-        return pdfFatturaService.generaPdfFattura(idCliente, fattura, false);//esiste
-    } */
+
+        Fattura fattura = fatturaService.fattura(idFattura); // prendi la fattura dal DB
+
+        if (fattura == null) {
+            // gestione fattura non trovata
+            return ResponseEntity.notFound().build();
+        }
+
+        Long idOrdine = fattura.getOrdine().getId(); // prendi l'id ordine dalla fattura
+
+        // Chiamo il servizio pdf passando idOrdine, idCliente, fattura e false (non nuova)
+        return pdfFatturaService.generaPdfFattura(idOrdine, idCliente, fattura, false);
+    }
 
     @GetMapping("/fatture")
     public String tutteFatture(@RequestParam(name = "keyword", required = false) String param, Model model) {

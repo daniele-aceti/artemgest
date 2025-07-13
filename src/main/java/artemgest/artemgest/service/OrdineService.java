@@ -79,4 +79,9 @@ public class OrdineService {
     public Optional<Prodotto> cercaProdotto(Long idProdotto) {
         return prodottoRepository.findById(idProdotto);
     }
+
+    public Optional<Ordine> cercaOrdine(Long idOrdine) {
+        return ordineRepository.findById(idOrdine);
+
+    }
 }

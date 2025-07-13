@@ -8,7 +8,7 @@
   </head>
 
   <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
-    <div class="max-w-3xl w-full bg-white p-10 rounded-xl shadow-xl">
+    <div class="max-w-4xl w-full bg-white p-10 rounded-xl shadow-xl">
       <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">
         Dettaglio Fattura
       </h2>
@@ -17,30 +17,9 @@
       <div
         class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 text-base"
       >
-        <div>
-          <strong>Numero Fattura:</strong>
-          <p
-            th:text="|00${fattura.id}-${#dates.format(#dates.createNow(), 'yyyy')}|"
-          ></p>
-        </div>
-        <div>
-          <strong>Data Emissione:</strong>
-          <p th:text="${fattura.dataInizioFattura}"></p>
-        </div>
-        <div>
-          <strong>Data Scadenza:</strong>
-          <p th:text="${fattura.dataScadenzaFattura}"></p>
-        </div>
-        <div>
-          <strong>Tipo IVA:</strong>
-          <p th:text="${fattura.statoIva}"></p>
-        </div>
-        <div>
-          <strong>Stato Fattura:</strong>
-          <p th:text="${fattura.statoFattura}"></p>
-        </div>
-      </div>
-
+      <div th:if="${fattura == null}">
+  <p th:text="${messaggioErrore}">Errore</p>
+</div>
       <!-- Dati cliente associato -->
       <div class="mt-10 text-gray-800">
         <h3 class="text-xl font-semibold mb-4">Cliente</h3>
@@ -56,6 +35,38 @@
           <strong>Telefono:</strong>
           <span th:text="${fattura.cliente.telefono}"></span>
         </p>
+      </div>
+
+      <!-- Dettagli Prodotti Acquistati -->
+      <div class="mt-10 text-gray-800">
+        <h3 class="text-xl font-semibold mb-4">Dettagli Prodotti Acquistati</h3>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white rounded-lg shadow-md">
+            <thead>
+              <tr class="bg-gray-200 text-gray-700 text-left">
+                <th class="py-2 px-4">Prodotto</th>
+                <th class="py-2 px-4">Prezzo Unitario</th>
+                <th class="py-2 px-4">Quantità</th>
+                <th class="py-2 px-4">Totale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="dettaglio : ${listaDettagliOrdini}" class="border-b">
+                <td class="py-2 px-4" th:text="${dettaglio.prodotto.nome}"></td>
+                <td
+                  class="py-2 px-4"
+                  th:text="|€ ${dettaglio.prodotto.prezzo}|"
+                ></td>
+                <td class="py-2 px-4" th:text="${dettaglio.quantita}"></td>
+                <td
+                  class="py-2 px-4"
+                  th:text="|€ ${dettaglio.prodotto.prezzo * dettaglio.quantita}|"
+                ></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Azioni -->

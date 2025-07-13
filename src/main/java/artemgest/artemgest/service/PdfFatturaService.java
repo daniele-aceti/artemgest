@@ -131,11 +131,11 @@ public class PdfFatturaService {
 
                 nextX = x;
                 String[] valori = {
-                        String.valueOf(quantita),
-                        p.getNome(),
-                        String.format("%.2f €", prezzo),
-                        fatturaCompleta.getIva().multiply(BigDecimal.valueOf(100)).intValue() + "%",
-                        String.format("%.2f €", totaleRiga)
+                    String.valueOf(quantita),
+                    p.getNome(),
+                    String.format("%.2f €", prezzo),
+                    fatturaCompleta.getIva().multiply(BigDecimal.valueOf(100)).intValue() + "%",
+                    String.format("%.2f €", totaleRiga)
                 };
 
                 for (int i = 0; i < valori.length; i++) {
@@ -150,7 +150,7 @@ public class PdfFatturaService {
             }
 
             BigDecimal iva = imponibileTotale.multiply(fatturaCompleta.getIva()).setScale(2, RoundingMode.HALF_UP);
-            BigDecimal totale = imponibileTotale.add(iva);
+            fatturaCompleta.setImportoTotale(imponibileTotale.add(iva));
 
             // Totali
             y -= 20;
@@ -176,7 +176,7 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("Totale");
             content.newLineAtOffset(100, 0);
-            content.showText(String.format("%.2f €", totale));
+            content.showText(String.format("%.2f €", fatturaCompleta.getImportoTotale()));
             content.endText();
 
             // Footer
@@ -191,6 +191,13 @@ public class PdfFatturaService {
 
             content.close();
             doc.save(baos);
+        }
+
+        for(DettaglioOrdine dettagli : dettaglioOrdine) {    
+            Prodotto prodotto = dettagli.getProdotto();         
+            int quantita = prodotto.getQuantitaDisponibile() - dettagli.getQuantita();
+            prodotto.setQuantitaDisponibile(quantita);
+            ordineService.salvaProdotto(prodotto);
         }
 
         byte[] pdfBytes = baos.toByteArray();

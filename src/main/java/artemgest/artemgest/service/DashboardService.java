@@ -74,18 +74,19 @@ public class DashboardService {
 
     }
 
-    public double importoONumero(boolean importoONumero, String tipoFiltro) {
+    public double importoONumero(boolean calcolaImporto, String tipoFiltro) {
         List<Fattura> fatture = filtraFatture(tipoFiltro);
-        BigDecimal totale = BigDecimal.ZERO;
-        if (importoONumero) {
+        if (calcolaImporto) {
+            BigDecimal totale = BigDecimal.ZERO;
             for (Fattura fattura : fatture) {
-/*                 BigDecimal importo = BigDecimal.valueOf(fattura.getImporto());
- */                BigDecimal iva = fattura.getIva().add(BigDecimal.ONE);
-/*                 totale = totale.add(importo.multiply(iva).setScale(2, RoundingMode.HALF_UP));
- */            }
+                if (fattura.getImportoTotale() != null) {
+                    totale = totale.add(fattura.getImportoTotale());
+                }
+            }
             return totale.doubleValue();
+        } else {
+            return (double) fatture.size();
         }
-        return fatture.size();
     }
 
 }

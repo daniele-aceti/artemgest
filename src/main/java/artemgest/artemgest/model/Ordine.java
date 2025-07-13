@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Ordine {
@@ -25,6 +26,9 @@ public class Ordine {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
+
+    @OneToOne(mappedBy = "ordine", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Fattura fattura;
 
     public Long getId() {
         return id;
@@ -48,6 +52,14 @@ public class Ordine {
 
     public void setDettagli(List<DettaglioOrdine> dettagli) {
         this.dettagli = dettagli;
+    }
+
+    public Fattura getFattura() {
+        return fattura;
+    }
+
+    public void setFattura(Fattura fattura) {
+        this.fattura = fattura;
     }
 
 }

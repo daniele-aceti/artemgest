@@ -1,5 +1,6 @@
 package artemgest.artemgest.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
@@ -10,24 +11,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import artemgest.artemgest.model.DettaglioOrdine;
+import artemgest.artemgest.model.Fattura;
 import artemgest.artemgest.model.Ordine;
 import artemgest.artemgest.model.Prodotto;
 import artemgest.artemgest.service.ClienteService;
+import artemgest.artemgest.service.FatturaService;
 import artemgest.artemgest.service.OrdineService;
 import jakarta.validation.Valid;
-
-
-
 
 @Controller
 public class OrdineController {
 
     private final ClienteService clienteService;
     private final OrdineService ordineService;
+    private final FatturaService fatturaService;
 
-    public OrdineController(OrdineService ordineService, ClienteService clienteService) {
+    public OrdineController(OrdineService ordineService, ClienteService clienteService,
+            FatturaService fatturaService) {
         this.ordineService = ordineService;
         this.clienteService = clienteService;
+        this.fatturaService = fatturaService;
     }
 
     @GetMapping("/ordine/{idCliente}")
@@ -78,13 +82,25 @@ public class OrdineController {
         ordineService.salvaProdotto(prodotto.get());
         return "redirect:/magazzino";
     }
-    
-    
 
     @GetMapping("/listaOrdini/{idCliente}")
-    public String listaOrdini(@PathVariable Long idCliente,Model model) {
+    public String listaOrdini(@PathVariable Long idCliente, Model model) {
         model.addAttribute("listaOrdini", ordineService.listaOrdini(clienteService.cliente(idCliente).get()));
         return "listaOrdini";
     }
-    
+
+    @GetMapping("/dettaglioOrdine/{idOrdine}")
+    public String dettaglioOrdine(@PathVariable("idOrdine") Long id, Model model) {
+        List<DettaglioOrdine> dettagli = ordineService.listaProdottoFattura(id);
+        Optional<Fattura> optFattura = fatturaService.cercaFatturaOrdine(id);
+        if (optFattura.isPresent()) {
+            model.addAttribute("fattura", optFattura.get());
+        } else {
+            model.addAttribute("fattura", null);
+            model.addAttribute("messaggioErrore", "Nessuna fattura trovata per questo ordine");
+        }
+        model.addAttribute("listaDettagliOrdini", dettagli);
+        return "dettaglioOrdine";
+    }
+
 }
