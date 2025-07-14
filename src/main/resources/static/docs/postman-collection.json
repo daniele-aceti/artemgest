@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "99b750d4-77df-49e5-ad15-7c3f61cbd3bd",
+		"name": "artemgest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44346441",
+		"_collection_link": "https://daniele-4701020.postman.co/workspace/Daniele's-Workspace~99d49c51-bdc9-444a-8761-effcedf60d0a/collection/44346441-99b750d4-77df-49e5-ad15-7c3f61cbd3bd?action=share&source=collection_link&creator=44346441"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "magazzino",
+					"item": [
+						{
+							"name": "prodotti",
+							"item": [
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "Prodotto",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/magazzino/prodotti/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"magazzino",
+														"prodotti",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "79046041",
+															"description": "(Required) "
+														}
+													]
+												},
+												"description": "Ottieni solo il prodotto che cerchi"
+											},
+											"response": [
+												{
+													"name": "Prodotto specifico",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/magazzino/prodotti/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"magazzino",
+																"prodotti",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"quantitaDisponibile\": -13532478,\n  \"id\": 60167182,\n  \"nome\": \"do Duis pariatur\",\n  \"prezzo\": -12090415.666822895,\n  \"dettaglioOrdine\": [\n    {\n      \"id\": -29391108,\n      \"quantita\": 23732122,\n      \"ordine\": {\n        \"id\": -73140611,\n        \"dettagli\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n          }\n        ],\n        \"cliente\": {\n          \"cap\": \"est\",\n          \"citta\": \"mollit\",\n          \"email\": \"exercitation ut dolor labore\",\n          \"indirizzo\": \"adipisicing consequat commodo et\",\n          \"provincia\": \"in nisi\",\n          \"ragioneSociale\": \"sit aliqua qui n\",\n          \"telefono\": \"Ut\",\n          \"id\": -24709332,\n          \"getpIvaCFiscale\": \"aliquipquis\",\n          \"fatture\": [\n            {\n              \"id\": 41810888,\n              \"dataInizioFattura\": \"1985-04-11\",\n              \"dataScadenzaFattura\": \"1952-09-30\",\n              \"iva\": 33598460.20060715,\n              \"cliente\": {\n                \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n              },\n              \"statoIva\": \"RIDOTTA\",\n              \"statoFattura\": \"PAGATO\",\n              \"importoTotale\": 7753772.964396521,\n              \"ordine\": {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            },\n            {\n              \"id\": -1136916,\n              \"dataInizioFattura\": \"2012-01-18\",\n              \"dataScadenzaFattura\": \"1977-10-11\",\n              \"iva\": -90764940.36176221,\n              \"cliente\": {\n                \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n              },\n              \"statoIva\": \"ESENTE\",\n              \"statoFattura\": \"PAGATO\",\n              \"importoTotale\": 99724626.1728267,\n              \"ordine\": {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            }\n          ],\n          \"ordine\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            }\n          ]\n        },\n        \"fattura\": {\n          \"id\": 58652526,\n          \"dataInizioFattura\": \"1955-09-10\",\n          \"dataScadenzaFattura\": \"2007-10-11\",\n          \"iva\": 28191304.86826271,\n          \"cliente\": {\n            \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n          },\n          \"statoIva\": \"IVA22\",\n          \"statoFattura\": \"PAGATO\",\n          \"importoTotale\": 30097167.514215335,\n          \"ordine\": {\n            \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n          }\n        }\n      },\n      \"prodotto\": {\n        \"value\": \"<Circular reference to #/components/schemas/Prodotto detected>\"\n      }\n    },\n    {\n      \"id\": -75876941,\n      \"quantita\": 29497430,\n      \"ordine\": {\n        \"id\": 59371482,\n        \"dettagli\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n          }\n        ],\n        \"cliente\": {\n          \"cap\": \"commodo deserunt\",\n          \"citta\": \"Ut \",\n          \"email\": \"adipisicing\",\n          \"indirizzo\": \"eu adipisicing\",\n          \"provincia\": \"aliqua eu\",\n          \"ragioneSociale\": \"tempor\",\n          \"telefono\": \"reprehenderit ut veniam magna\",\n          \"id\": 54299252,\n          \"getpIvaCFiscale\": \"dolore elit i\",\n          \"fatture\": [\n            {\n              \"id\": 18839476,\n              \"dataInizioFattura\": \"1960-03-14\",\n              \"dataScadenzaFattura\": \"2008-10-25\",\n              \"iva\": -58392519.32640086,\n              \"cliente\": {\n                \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n              },\n              \"statoIva\": \"ESENTE\",\n              \"statoFattura\": \"SCADUTO\",\n              \"importoTotale\": -10123208.684378192,\n              \"ordine\": {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            },\n            {\n              \"id\": -33794068,\n              \"dataInizioFattura\": \"1962-07-31\",\n              \"dataScadenzaFattura\": \"1990-07-05\",\n              \"iva\": -44977341.750763245,\n              \"cliente\": {\n                \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n              },\n              \"statoIva\": \"IVA22\",\n              \"statoFattura\": \"PAGATO\",\n              \"importoTotale\": 41680732.202965766,\n              \"ordine\": {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            }\n          ],\n          \"ordine\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            }\n          ]\n        },\n        \"fattura\": {\n          \"id\": 91014983,\n          \"dataInizioFattura\": \"2022-02-28\",\n          \"dataScadenzaFattura\": \"1972-11-06\",\n          \"iva\": 43989999.65042418,\n          \"cliente\": {\n            \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n          },\n          \"statoIva\": \"IVA22\",\n          \"statoFattura\": \"IN_ATTESA\",\n          \"importoTotale\": 43379912.90417293,\n          \"ordine\": {\n            \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n          }\n        }\n      },\n      \"prodotto\": {\n        \"value\": \"<Circular reference to #/components/schemas/Prodotto detected>\"\n      }\n    }\n  ],\n  \"upc\": \"ad anim ut\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Prodotti",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/magazzino/prodotti",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"magazzino",
+												"prodotti"
+											]
+										},
+										"description": "Ottieni solo i prodotti in giacenza"
+									},
+									"response": [
+										{
+											"name": "Lista dei prodotti",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/magazzino/prodotti",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"magazzino",
+														"prodotti"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"quantitaDisponibile\": -85197842,\n    \"id\": 99011904,\n    \"nome\": \"est ea\",\n    \"prezzo\": 4155258.7003409714,\n    \"dettaglioOrdine\": [\n      {\n        \"id\": -14268547,\n        \"quantita\": 58891814,\n        \"ordine\": {\n          \"id\": -46212390,\n          \"dettagli\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            }\n          ],\n          \"cliente\": {\n            \"cap\": \"ipsum amet voluptate exercitation\",\n            \"citta\": \"do elit qui\",\n            \"email\": \"aliquip en\",\n            \"indirizzo\": \"ea dolor aliquip anim\",\n            \"provincia\": \"veniam proident\",\n            \"ragioneSociale\": \"labore Duis ad\",\n            \"telefono\": \"sed veniam\",\n            \"id\": -36481457,\n            \"getpIvaCFiscale\": \"labore velit\",\n            \"fatture\": [\n              {\n                \"id\": -79814884,\n                \"dataInizioFattura\": \"1958-06-21\",\n                \"dataScadenzaFattura\": \"1956-05-30\",\n                \"iva\": -85299683.35926794,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"ESENTE\",\n                \"statoFattura\": \"SCADUTO\",\n                \"importoTotale\": -83918170.0255757,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              },\n              {\n                \"id\": -34318518,\n                \"dataInizioFattura\": \"2013-05-26\",\n                \"dataScadenzaFattura\": \"1961-04-03\",\n                \"iva\": 47664437.45610362,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"RIDOTTA\",\n                \"statoFattura\": \"SCADUTO\",\n                \"importoTotale\": -49359348.981661454,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              }\n            ],\n            \"ordine\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            ]\n          },\n          \"fattura\": {\n            \"id\": -4988006,\n            \"dataInizioFattura\": \"1967-05-25\",\n            \"dataScadenzaFattura\": \"1976-01-09\",\n            \"iva\": -22991209.478672385,\n            \"cliente\": {\n              \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n            },\n            \"statoIva\": \"IVA22\",\n            \"statoFattura\": \"SCADUTO\",\n            \"importoTotale\": -20150716.132418767,\n            \"ordine\": {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            }\n          }\n        },\n        \"prodotto\": {\n          \"value\": \"<Circular reference to #/components/schemas/Prodotto detected>\"\n        }\n      },\n      {\n        \"id\": -89039616,\n        \"quantita\": -66523618,\n        \"ordine\": {\n          \"id\": -88645586,\n          \"dettagli\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            }\n          ],\n          \"cliente\": {\n            \"cap\": \"labore Ut enim Excepteur\",\n            \"citta\": \"officia sint veniam\",\n            \"email\": \"dolore esse\",\n            \"indirizzo\": \"laboris fugiat\",\n            \"provincia\": \"Duis ullamco in\",\n            \"ragioneSociale\": \"Lorem mollit fugiat eiusmod\",\n            \"telefono\": \"labore cillum\",\n            \"id\": 40041105,\n            \"getpIvaCFiscale\": \"ullamco dese\",\n            \"fatture\": [\n              {\n                \"id\": -73190428,\n                \"dataInizioFattura\": \"1959-01-07\",\n                \"dataScadenzaFattura\": \"2007-06-28\",\n                \"iva\": -95682785.93855326,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"IVA22\",\n                \"statoFattura\": \"PAGATO\",\n                \"importoTotale\": 15087249.319896445,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              },\n              {\n                \"id\": 99734492,\n                \"dataInizioFattura\": \"1990-12-01\",\n                \"dataScadenzaFattura\": \"1989-05-04\",\n                \"iva\": -39953296.03833117,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"ESENTE\",\n                \"statoFattura\": \"PAGATO\",\n                \"importoTotale\": 71640152.25697926,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              }\n            ],\n            \"ordine\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            ]\n          },\n          \"fattura\": {\n            \"id\": 5310400,\n            \"dataInizioFattura\": \"1970-09-16\",\n            \"dataScadenzaFattura\": \"1991-08-16\",\n            \"iva\": -35882248.99444792,\n            \"cliente\": {\n              \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n            },\n            \"statoIva\": \"ESENTE\",\n            \"statoFattura\": \"IN_ATTESA\",\n            \"importoTotale\": 80273678.63971743,\n            \"ordine\": {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            }\n          }\n        },\n        \"prodotto\": {\n          \"value\": \"<Circular reference to #/components/schemas/Prodotto detected>\"\n        }\n      }\n    ],\n    \"upc\": \"amet id consequat in consectetur\"\n  },\n  {\n    \"quantitaDisponibile\": 95415209,\n    \"id\": -11945289,\n    \"nome\": \"dolore voluptate\",\n    \"prezzo\": -23305064.745863825,\n    \"dettaglioOrdine\": [\n      {\n        \"id\": -69380454,\n        \"quantita\": 2885771,\n        \"ordine\": {\n          \"id\": -50272918,\n          \"dettagli\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            }\n          ],\n          \"cliente\": {\n            \"cap\": \"cillum nisi laboris sunt in\",\n            \"citta\": \"esse dolore\",\n            \"email\": \"in Lorem\",\n            \"indirizzo\": \"non quis\",\n            \"provincia\": \"nulla dolore in quis\",\n            \"ragioneSociale\": \"in laboris\",\n            \"telefono\": \"esse do occaecat\",\n            \"id\": -89563050,\n            \"getpIvaCFiscale\": \"minim auteipsu\",\n            \"fatture\": [\n              {\n                \"id\": -82586004,\n                \"dataInizioFattura\": \"1995-09-30\",\n                \"dataScadenzaFattura\": \"2017-09-22\",\n                \"iva\": -48817874.46299377,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"IVA22\",\n                \"statoFattura\": \"SCADUTO\",\n                \"importoTotale\": 60210557.108359635,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              },\n              {\n                \"id\": -29140572,\n                \"dataInizioFattura\": \"1983-07-18\",\n                \"dataScadenzaFattura\": \"1953-07-27\",\n                \"iva\": 43507919.02888858,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"IVA22\",\n                \"statoFattura\": \"IN_ATTESA\",\n                \"importoTotale\": 13471986.480399683,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              }\n            ],\n            \"ordine\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            ]\n          },\n          \"fattura\": {\n            \"id\": 73401966,\n            \"dataInizioFattura\": \"1994-01-03\",\n            \"dataScadenzaFattura\": \"1990-09-14\",\n            \"iva\": -36789800.26514975,\n            \"cliente\": {\n              \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n            },\n            \"statoIva\": \"ESENTE\",\n            \"statoFattura\": \"SCADUTO\",\n            \"importoTotale\": -10198965.99278076,\n            \"ordine\": {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            }\n          }\n        },\n        \"prodotto\": {\n          \"value\": \"<Circular reference to #/components/schemas/Prodotto detected>\"\n        }\n      },\n      {\n        \"id\": -92578174,\n        \"quantita\": 80578637,\n        \"ordine\": {\n          \"id\": 87599436,\n          \"dettagli\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/DettaglioOrdine detected>\"\n            }\n          ],\n          \"cliente\": {\n            \"cap\": \"in in ut\",\n            \"citta\": \"sunt minim aute adipisicing sint\",\n            \"email\": \"non dolore adipisicing esse\",\n            \"indirizzo\": \"deserunt elit pariatur\",\n            \"provincia\": \"Lorem laboris\",\n            \"ragioneSociale\": \"pariat\",\n            \"telefono\": \"cupidatat consectetur\",\n            \"id\": -17872626,\n            \"getpIvaCFiscale\": \"sunt id sit\",\n            \"fatture\": [\n              {\n                \"id\": 71158917,\n                \"dataInizioFattura\": \"2010-09-11\",\n                \"dataScadenzaFattura\": \"1963-07-13\",\n                \"iva\": -53764756.999994926,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"IVA22\",\n                \"statoFattura\": \"PAGATO\",\n                \"importoTotale\": 88726801.29163241,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              },\n              {\n                \"id\": 41110216,\n                \"dataInizioFattura\": \"1985-12-04\",\n                \"dataScadenzaFattura\": \"1969-04-29\",\n                \"iva\": -81304996.94739357,\n                \"cliente\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n                },\n                \"statoIva\": \"ESENTE\",\n                \"statoFattura\": \"SCADUTO\",\n                \"importoTotale\": -50440559.729867384,\n                \"ordine\": {\n                  \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n                }\n              }\n            ],\n            \"ordine\": [\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              },\n              {\n                \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n              }\n            ]\n          },\n          \"fattura\": {\n            \"id\": -87804479,\n            \"dataInizioFattura\": \"1948-07-09\",\n            \"dataScadenzaFattura\": \"2007-04-09\",\n            \"iva\": 16715704.148426577,\n            \"cliente\": {\n              \"value\": \"<Circular reference to #/components/schemas/Cliente detected>\"\n            },\n            \"statoIva\": \"RIDOTTA\",\n            \"statoFattura\": \"IN_ATTESA\",\n            \"importoTotale\": -55128408.37688189,\n            \"ordine\": {\n              \"value\": \"<Circular reference to #/components/schemas/Ordine detected>\"\n            }\n          }\n        },\n        \"prodotto\": {\n          \"value\": \"<Circular reference to #/components/schemas/Prodotto detected>\"\n        }\n      }\n    ],\n    \"upc\": \"Lorem adipisicing\"\n  }\n]"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "dashboard",
+					"item": [
+						{
+							"name": "fatturato",
+							"item": [
+								{
+									"name": "Ottieni il fatturato mensile",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/dashboard/fatturato",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"dashboard",
+												"fatturato"
+											]
+										},
+										"description": "Calcola il totale delle fatture pagate nel mese corrente"
+									},
+									"response": [
+										{
+											"name": "Totale fatturato del mese",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/dashboard/fatturato",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"dashboard",
+														"fatturato"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "6268945.61320968"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

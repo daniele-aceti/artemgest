@@ -73,8 +73,12 @@ public class FatturaService {
         return fatturaRepository.save(fattura.get());
     }
 
-    public Optional<Fattura> cercaFatturaOrdine(Long idOrdine){
+    public Optional<Fattura> cercaFatturaOrdine(Long idOrdine) {
         return fatturaRepository.findFirstByOrdine_Id(idOrdine);
+    }
+
+    public List<Fattura> listaFatture() {
+        return fatturaRepository.findAll();
     }
 
 }
