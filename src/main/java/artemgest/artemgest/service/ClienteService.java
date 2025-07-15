@@ -41,7 +41,7 @@ public class ClienteService {
         return clienteRepository.findByRagioneSocialeContainingIgnoreCase(param);
     }
 
-    public Cliente dettaglioCLiente(Long idCliente) {
+    public Cliente dettaglioCliente(Long idCliente) {
         Optional<Cliente> clienteOpt = clienteRepository.findById(idCliente);
         if (clienteOpt.isEmpty()) {
             throw new ClienteNotFoundException(idCliente);

@@ -1,22 +1,22 @@
 package artemgest.artemgest.controller;
 
-
-import artemgest.artemgest.model.Cliente;
-import artemgest.artemgest.service.ClienteService;
-import artemgest.artemgest.service.FatturaService;
-import artemgest.artemgest.service.OrdineService;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Collections;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import artemgest.artemgest.model.Cliente;
+import artemgest.artemgest.service.ClienteService;
+import artemgest.artemgest.service.FatturaService;
+import artemgest.artemgest.service.OrdineService;
 
 @WebMvcTest(ClienteController.class)
 public class ClienteControllerTest {
@@ -25,13 +25,13 @@ public class ClienteControllerTest {
     private MockMvc mockMvc;
 
     // Mock dei service utilizzati nel controller
-    @MockBean
+    @MockitoBean
     private ClienteService clienteService;
 
-    @MockBean
+    @MockitoBean
     private FatturaService fatturaService;
 
-    @MockBean
+    @MockitoBean
     private OrdineService ordineService;
 
     @Test
@@ -59,5 +59,18 @@ public class ClienteControllerTest {
                 .andExpect(view().name("formCliente"))
                 .andExpect(model().attributeExists("nuovoCliente"));
     }
-}
 
+    @Test
+    void dettaglioCliente() throws Exception {
+        Long idCliente = 1L;
+
+        Cliente clienteMock = new Cliente();
+        clienteMock.setId(idCliente);
+
+        Mockito.when(clienteService.dettaglioCliente(idCliente)).thenReturn(clienteMock);
+        mockMvc.perform(get("/dettaglioCliente/{id}", idCliente))
+                .andExpect(status().isOk())
+                .andExpect(view().name("dettaglioCliente"))
+                .andExpect(model().attributeExists("cliente"));
+    }
+}

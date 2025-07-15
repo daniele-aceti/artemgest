@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import artemgest.artemgest.model.Cliente;
-import artemgest.artemgest.model.Fattura;
 import artemgest.artemgest.service.ClienteService;
 import artemgest.artemgest.service.FatturaService;
 import artemgest.artemgest.service.OrdineService;
@@ -58,17 +57,10 @@ public class ClienteController {
         return "redirect:/dettaglioCliente/" + clienteForm.getId();
     }
 
-    @GetMapping("/nuovaFattura/{idCliente}/{idOrdine}")
-    public String nuovaFattura(@PathVariable Long idOrdine, @PathVariable Long idCliente, Model model) {
-        model.addAttribute("idOrdine", idOrdine);
-        model.addAttribute("cliente", clienteService.dettaglioCLiente(idCliente));
-        model.addAttribute("nuovaFattura", new Fattura());
-        return "formFattura";
-    }
 
     @GetMapping("/dettaglioCliente/{id}")
     public String dettaglioCliente(@PathVariable Long id, Model model) {
-        model.addAttribute("cliente", clienteService.dettaglioCLiente(id));
+        model.addAttribute("cliente", clienteService.dettaglioCliente(id));
         return "dettaglioCliente";
     }
 

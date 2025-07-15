@@ -88,15 +88,23 @@ public class FatturaController {
     }
 
     @GetMapping("/dettaglioFattura/{id}")
-    public String dettaglioFattur(@PathVariable Long id, Model model) {
+    public String dettaglioFattura(@PathVariable Long id, Model model) {
         model.addAttribute("fattura", fatturaService.fattura(id));
         return "dettaglioFattura";
     }
 
     @PostMapping("/cambioStato/{id}")
-    public String postMethodName(@PathVariable Long id, @ModelAttribute Fattura formFattura) {
+    public String cambioStatoPost(@PathVariable Long id, @ModelAttribute Fattura formFattura) {
         fatturaService.cambiaStatoFattura(id, formFattura);
         return "redirect:/fatture";
+    }
+
+    @GetMapping("/nuovaFattura/{idCliente}/{idOrdine}")
+    public String nuovaFattura(@PathVariable Long idOrdine, @PathVariable Long idCliente, Model model) {
+        model.addAttribute("idOrdine", idOrdine);
+        model.addAttribute("cliente", clienteService.dettaglioCliente(idCliente));
+        model.addAttribute("nuovaFattura", new Fattura());
+        return "formFattura";
     }
 
 }
