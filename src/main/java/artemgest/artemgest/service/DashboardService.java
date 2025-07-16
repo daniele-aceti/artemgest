@@ -2,8 +2,9 @@ package artemgest.artemgest.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,71 +23,54 @@ public class DashboardService {
         this.fatturaRepository = fatturaRepository;
     }
 
-    private List<Fattura> filtraFatture(String tipoFiltro) {
-        List<Fattura> risultato = new ArrayList<>();
+    public Map<String, BigDecimal> filtraFatture(String tipoFiltro) {
+
+        Map<String, BigDecimal> mappaRisultatiDashboard = new HashMap<>();
         List<Fattura> tutte = fatturaRepository.findAll();
+
+        //data dal primo fino all'ultimo giorno del mese
         LocalDate oggi = LocalDate.now();
         LocalDate primoDelMese = oggi.withDayOfMonth(1);
         LocalDate ultimoDelMese = oggi.withDayOfMonth(oggi.lengthOfMonth());
 
+        //valori nella dashboard
+        BigDecimal numeroFattureEmesse = BigDecimal.ZERO;
+        BigDecimal totalePagato = BigDecimal.ZERO;
+        BigDecimal numeroFattureScadute = BigDecimal.ZERO;
+        BigDecimal numeroFattureInAttesa = BigDecimal.ZERO;
+        BigDecimal fatturatoInAttesa = BigDecimal.ZERO;
+
         for (Fattura f : tutte) {
-            boolean aggiungi = false;
+            numeroFattureEmesse = numeroFattureEmesse.add(BigDecimal.ONE);
 
-            if (f.getDataInizioFattura() != null) {
-                LocalDate data = f.getDataInizioFattura();
-
-                if (tipoFiltro.equals("PAGATO")) {
-                    if (!data.isBefore(primoDelMese) && !data.isAfter(ultimoDelMese) && f.getStatoFattura() == StatoFattura.PAGATO) {
-                        aggiungi = true;
-                    }
-                }
-
-                if (tipoFiltro.equals("SCADUTE") && f.getStatoFattura() == StatoFattura.SCADUTO) {
-                    aggiungi = true;
-                }
-
-                if (tipoFiltro.equals("IN_ATTESA") && f.getStatoFattura() == StatoFattura.IN_ATTESA) {
-                    aggiungi = true;
-                }
+            if (f.getDataInizioFattura() == null) {
+                continue;
             }
 
-            if (aggiungi) {
-                risultato.add(f);
+            LocalDate data = f.getDataInizioFattura();
+            StatoFattura stato = f.getStatoFattura();
+
+            if (!data.isBefore(primoDelMese) && !data.isAfter(ultimoDelMese) && stato == StatoFattura.PAGATO) {
+                totalePagato = totalePagato.add(f.getImportoTotale());
+            }
+
+            if (stato == StatoFattura.SCADUTO) {
+                numeroFattureScadute = numeroFattureScadute.add(BigDecimal.ONE);
+            }
+
+            if (stato == StatoFattura.IN_ATTESA) {
+                numeroFattureInAttesa = numeroFattureInAttesa.add(BigDecimal.ONE);
+                fatturatoInAttesa = fatturatoInAttesa.add(f.getImportoTotale());
             }
         }
 
-        return risultato;
-    }
+        mappaRisultatiDashboard.put("numeroFattureEmesse", numeroFattureEmesse);
+        mappaRisultatiDashboard.put("totale", totalePagato);
+        mappaRisultatiDashboard.put("numeroFattureScadute", numeroFattureScadute);
+        mappaRisultatiDashboard.put("numeroFattureInAttesa", numeroFattureInAttesa);
+        mappaRisultatiDashboard.put("fatturatoInAttesa", fatturatoInAttesa);
 
-    public double fattureDelMese(boolean importoONumero) {
-        String pagato = "PAGATO";
-        return importoONumero(importoONumero, pagato);
-    }
-
-    public int fattureScadute() {
-        List<Fattura> scadute = filtraFatture("SCADUTE");
-        return scadute.size();
-    }
-
-    public double fattureInAttesa(boolean importoONumero) {
-        String inAttesa = "IN_ATTESA";
-        return importoONumero(importoONumero, inAttesa);
-
-    }
-
-    public double importoONumero(boolean calcolaImporto, String tipoFiltro) {
-        List<Fattura> fatture = filtraFatture(tipoFiltro);
-        if (calcolaImporto) {
-            BigDecimal totale = BigDecimal.ZERO;
-            for (Fattura fattura : fatture) {
-                if (fattura.getImportoTotale() != null) {
-                    totale = totale.add(fattura.getImportoTotale());
-                }
-            }
-            return totale.doubleValue();
-        } else {
-            return (double) fatture.size();
-        }
+        return mappaRisultatiDashboard;
     }
 
 }

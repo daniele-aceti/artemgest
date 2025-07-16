@@ -1,5 +1,11 @@
 package artemgest.artemgest.controller;
 
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +27,43 @@ public class DashboardControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    DashboardService dashboardService;
+    private DashboardService dashboardService;
 
     @MockitoBean
-    EventService eventService;
+    private EventService eventService;
+
+    private Map<String, BigDecimal> pagatoStats;
+    private Map<String, BigDecimal> scaduteStats;
+    private Map<String, BigDecimal> inAttesaStats;
+
+    @BeforeEach
+    public void setUp() {
+        pagatoStats = new HashMap<>();
+        pagatoStats.put("numeroFattureEmesse", BigDecimal.valueOf(5));
+        pagatoStats.put("totale", BigDecimal.valueOf(1000));
+
+        scaduteStats = new HashMap<>();
+        scaduteStats.put("numeroFattureScadute", BigDecimal.valueOf(2));
+
+        inAttesaStats = new HashMap<>();
+        inAttesaStats.put("numeroFattureInAttesa", BigDecimal.valueOf(3));
+        inAttesaStats.put("fatturatoInAttesa", BigDecimal.valueOf(600));
+    }
 
     @Test
-    void dashboardTest() throws Exception {
-        Boolean dashboardMock = false;
-        Double fatturatoMese = 1.0;
-
-        Mockito.when(dashboardService.fattureDelMese(dashboardMock)).thenReturn(fatturatoMese);
-        Mockito.when(dashboardService.fattureDelMese(dashboardMock)).thenReturn(fatturatoMese);
-        Mockito.when(dashboardService.fattureDelMese(dashboardMock)).thenReturn(fatturatoMese);
-        Mockito.when(dashboardService.fattureDelMese(dashboardMock)).thenReturn(fatturatoMese);
-        Mockito.when(dashboardService.fattureDelMese(dashboardMock)).thenReturn(fatturatoMese);
+    public void testDashboard() throws Exception {
+        Mockito.when(eventService.getUpcomingEventNotifications()).thenReturn(Collections.emptyList());
+        Mockito.when(dashboardService.filtraFatture("PAGATO")).thenReturn(pagatoStats);
+        Mockito.when(dashboardService.filtraFatture("SCADUTE")).thenReturn(scaduteStats);
+        Mockito.when(dashboardService.filtraFatture("IN_ATTESA")).thenReturn(inAttesaStats);
 
         mockMvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("dashboard"))
-                .andExpect(model().attributeExists("notifications"))
-                .andExpect(model().attributeExists("fatturatoMese"))
-                .andExpect(model().attributeExists("numeroFattureMese"))
-                .andExpect(model().attributeExists("numeroFattureScaduteMese"))
-                .andExpect(model().attributeExists("numeroFattureInAttesaMese"))
-                .andExpect(model().attributeExists("fatturatoMeseInAttesa"));
+                .andExpect(model().attribute("numeroFattureMese", BigDecimal.valueOf(5)))
+                .andExpect(model().attribute("fatturatoMese", BigDecimal.valueOf(1000)))
+                .andExpect(model().attribute("numeroFattureScaduteMese", BigDecimal.valueOf(2)))
+                .andExpect(model().attribute("numeroFattureInAttesaMese", BigDecimal.valueOf(3)))
+                .andExpect(model().attribute("fatturatoMeseInAttesa", BigDecimal.valueOf(600)));
     }
-
 }
