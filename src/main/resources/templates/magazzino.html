@@ -34,7 +34,7 @@
           <h1 class="text-2xl font-semibold text-dark">Magazzino</h1>
           <a
             href="/prodotto"
-            class="bg-primary text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+            class="relative px-6 py-2 rounded-lg font-medium text-neutral-800 bg-white/30 backdrop-blur-md shadow-md border border-neutral-200 hover:bg-white/50 transition-all duration-300 ease-in-out hover:scale-105"
           >
             + Aggiungi Prodotto
           </a>
@@ -100,26 +100,26 @@
 
     <script>
       async function aggiornaQuantita(inputElem) {
-        const idProdotto = inputElem.getAttribute('data-id');
+        const idProdotto = inputElem.getAttribute("data-id");
         const nuovaQuantita = inputElem.value;
 
         const formData = new FormData();
-        formData.append('quantitaDisponibile', nuovaQuantita);
+        formData.append("quantitaDisponibile", nuovaQuantita);
 
         try {
           const response = await fetch(`/magazzino/${idProdotto}`, {
-            method: 'POST',
+            method: "POST",
             body: formData,
             headers: {
-              'X-Requested-With': 'XMLHttpRequest'
-            }
+              "X-Requested-With": "XMLHttpRequest",
+            },
           });
 
           if (!response.ok) {
-            alert('Errore durante l\'aggiornamento della quantità');
+            alert("Errore durante l'aggiornamento della quantità");
           }
         } catch (error) {
-          alert('Errore di rete o server: ' + error);
+          alert("Errore di rete o server: " + error);
         }
       }
     </script>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Errore</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-red-50 flex flex-col items-center justify-center min-h-screen text-center p-6">
+    <h1 class="text-4xl font-bold text-red-600 mb-4">😥 Errore interno</h1>
+    <p th:text="${message}" class="text-lg mb-2"></p>
+    <p th:text="${errorDetails}" class="text-sm text-gray-600"></p>
+    <a href="/dashboard" class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Torna alla Home</a>
+</body>
+</html>
