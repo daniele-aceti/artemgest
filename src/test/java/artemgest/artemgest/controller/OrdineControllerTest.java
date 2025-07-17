@@ -27,7 +27,7 @@ import artemgest.artemgest.service.FatturaService;
 import artemgest.artemgest.service.OrdineService;
 
 @WebMvcTest(OrdineController.class)
-public class OrdineControllerTest {
+class OrdineControllerTest {
 
     @Autowired
     private MockMvc mockmvc;

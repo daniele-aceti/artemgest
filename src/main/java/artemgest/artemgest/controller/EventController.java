@@ -20,8 +20,12 @@ import artemgest.artemgest.repository.EventRepository;
 @Controller
 public class EventController {
 
+    private final EventRepository eventRepository;
+
     @Autowired
-    private EventRepository eventRepository;
+    public EventController(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @GetMapping("/calendar")
     public String getCalendar(Model model) {

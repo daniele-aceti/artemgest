@@ -18,7 +18,7 @@ import artemgest.artemgest.model.Cliente;
 import artemgest.artemgest.repository.ClienteRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class ClienteServiceTest {
+class ClienteServiceTest {
 
     @Mock
     private ClienteRepository clienteRepository;

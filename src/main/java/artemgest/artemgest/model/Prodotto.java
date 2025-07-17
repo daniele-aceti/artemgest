@@ -26,7 +26,7 @@ public class Prodotto {
     private double prezzo;
 
     @Column(nullable = false)
-    private String UPC;
+    private String upc;
 
     @NotNull
     @Column(nullable = false)
@@ -35,7 +35,6 @@ public class Prodotto {
     @OneToMany(mappedBy = "prodotto")
     @JsonBackReference
     private List<DettaglioOrdine> dettaglioOrdine;
-
 
     public Long getId() {
         return id;
@@ -61,14 +60,6 @@ public class Prodotto {
         this.prezzo = prezzo;
     }
 
-    public String getUPC() {
-        return UPC;
-    }
-
-    public void setUPC(String uPC) {
-        UPC = uPC;
-    }
-
     public List<DettaglioOrdine> getDettaglioOrdine() {
         return dettaglioOrdine;
     }
@@ -85,5 +76,12 @@ public class Prodotto {
         this.quantitaDisponibile = quantitaDisponibile;
     }
 
+    public String getUpc() {
+        return upc;
+    }
+
+    public void setUpc(String upc) {
+        this.upc = upc;
+    }
 
 }

@@ -46,15 +46,15 @@
 
       <!-- Codice UPC -->
       <div>
-        <label for="UPC" class="block text-sm font-medium text-gray-700">Codice UPC</label>
+        <label for="upc" class="block text-sm font-medium text-gray-700">Codice UPC</label>
         <input
-          th:field="*{UPC}"
+          th:field="*{upc}"
           type="text"
-          id="UPC"
+          id="upc"
           class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
           th:errorClass="border-red-500"
         />
-        <p class="text-sm text-red-500 mt-1" th:if="${#fields.hasErrors('UPC')}" th:each="err : ${#fields.errors('UPC')}" th:text="${err}"></p>
+        <p class="text-sm text-red-500 mt-1" th:if="${#fields.hasErrors('upc')}" th:each="err : ${#fields.errors('upc')}" th:text="${err}"></p>
       </div>
 
       <!-- Quantità disponibile -->

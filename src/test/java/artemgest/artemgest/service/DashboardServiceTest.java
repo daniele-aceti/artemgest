@@ -16,7 +16,7 @@ import artemgest.artemgest.model.Fattura;
 import artemgest.artemgest.model.StatoFattura;
 import artemgest.artemgest.repository.FatturaRepository;
 
-public class DashboardServiceTest {
+class DashboardServiceTest {
 
     private FatturaRepository fatturaRepository;
     private DashboardService dashboardService;
@@ -51,7 +51,7 @@ public class DashboardServiceTest {
         List<Fattura> fatture = Arrays.asList(pagatoFattura, scadutoFattura, inAttesaFattura);
         when(fatturaRepository.findAll()).thenReturn(fatture);
 
-        Map<String, BigDecimal> result = dashboardService.filtraFatture("QUALSIASI"); // tipoFiltro non usato
+        Map<String, BigDecimal> result = dashboardService.filtraFatture(); // tipoFiltro non usato
 
         assertThat(result.get("numeroFattureEmesse")).isEqualByComparingTo(BigDecimal.valueOf(3));
         assertThat(result.get("totale")).isEqualByComparingTo(BigDecimal.valueOf(100));

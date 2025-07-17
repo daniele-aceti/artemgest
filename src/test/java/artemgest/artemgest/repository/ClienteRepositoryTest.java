@@ -12,7 +12,7 @@ import artemgest.artemgest.model.Cliente;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class ClienteRepositoryTest {
+class ClienteRepositoryTest {
 
     @Autowired
     private ClienteRepository clienteRepository;

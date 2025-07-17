@@ -23,7 +23,7 @@ public class DashboardService {
         this.fatturaRepository = fatturaRepository;
     }
 
-    public Map<String, BigDecimal> filtraFatture(String tipoFiltro) {
+    public Map<String, BigDecimal> filtraFatture() {
 
         Map<String, BigDecimal> mappaRisultatiDashboard = new HashMap<>();
         List<Fattura> tutte = fatturaRepository.findAll();
@@ -41,7 +41,7 @@ public class DashboardService {
         BigDecimal fatturatoInAttesa = BigDecimal.ZERO;
 
         for (Fattura f : tutte) {
-            numeroFattureEmesse = numeroFattureEmesse.add(BigDecimal.ONE);
+            numeroFattureEmesse = numeroFattureEmesse.add(BigDecimal.ONE); //numeroFattureEmesse++
 
             if (f.getDataInizioFattura() == null) {
                 continue;

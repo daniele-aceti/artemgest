@@ -15,7 +15,7 @@ import artemgest.artemgest.model.Prodotto;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class DettaglioOrdineRepositoryTest {
+class DettaglioOrdineRepositoryTest {
 
     @Autowired
     private DettaglioOrdineRepository dettaglioOrdineRepository;
@@ -51,7 +51,7 @@ public class DettaglioOrdineRepositoryTest {
         // Creo e salvo un prodotto
         Prodotto prodotto = new Prodotto();
         prodotto.setNome("Prodotto Test");
-        prodotto.setUPC("UPCTEST123");
+        prodotto.setUpc("UPCTEST123");
         prodotto.setPrezzo(10.0);
         prodottoRepository.save(prodotto);
 

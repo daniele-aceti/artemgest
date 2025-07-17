@@ -31,11 +31,11 @@ public class DashboardController {
         List<String> notifications = eventService.getUpcomingEventNotifications();
         model.addAttribute("notifications", notifications);
 
-        Map<String, BigDecimal> statsPagato = dashboardService.filtraFatture("PAGATO");
+        Map<String, BigDecimal> statsPagato = dashboardService.filtraFatture();
 
-        Map<String, BigDecimal> statsScadute = dashboardService.filtraFatture("SCADUTE");
+        Map<String, BigDecimal> statsScadute = dashboardService.filtraFatture();
 
-        Map<String, BigDecimal> statsInAttesa = dashboardService.filtraFatture("IN_ATTESA");
+        Map<String, BigDecimal> statsInAttesa = dashboardService.filtraFatture();
 
         model.addAttribute("numeroFattureMese",
                 statsPagato.getOrDefault("numeroFattureEmesse", BigDecimal.ZERO));

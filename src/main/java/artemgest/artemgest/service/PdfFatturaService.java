@@ -42,6 +42,10 @@ public class PdfFatturaService {
         this.ordineService = ordineService;
     }
 
+    private static String formatEuro(BigDecimal valore) {
+        return String.format("%.2f €", valore);
+    }
+
     public ResponseEntity<byte[]> generaPdfFattura(Long idOrdine, Long idCliente, Fattura fattura, boolean nuovaFattura) throws IOException {
         Optional<Cliente> clienteOpt = clienteService.cliente(idCliente);
         List<DettaglioOrdine> dettaglioOrdine = ordineService.listaProdottoFattura(idOrdine);
@@ -133,9 +137,9 @@ public class PdfFatturaService {
                 String[] valori = {
                     String.valueOf(quantita),
                     p.getNome(),
-                    String.format("%.2f €", prezzo),
+                    String.format(formatEuro(prezzo)),
                     fatturaCompleta.getIva().multiply(BigDecimal.valueOf(100)).intValue() + "%",
-                    String.format("%.2f €", totaleRiga)
+                    String.format(formatEuro(totaleRiga))
                 };
 
                 for (int i = 0; i < valori.length; i++) {
@@ -159,7 +163,7 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("Imponibile");
             content.newLineAtOffset(100, 0);
-            content.showText(String.format("%.2f €", imponibileTotale));
+            content.showText(formatEuro(imponibileTotale));
             content.endText();
 
             y -= 15;
@@ -167,7 +171,7 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("IVA");
             content.newLineAtOffset(100, 0);
-            content.showText(String.format("%.2f €", iva));
+            content.showText(String.format(formatEuro(iva)));
             content.endText();
 
             y -= 15;
@@ -176,7 +180,7 @@ public class PdfFatturaService {
             content.newLineAtOffset(350, y);
             content.showText("Totale");
             content.newLineAtOffset(100, 0);
-            content.showText(String.format("%.2f €", fatturaCompleta.getImportoTotale()));
+            content.showText(String.format(formatEuro(fatturaCompleta.getImportoTotale())));
             content.endText();
 
             // Footer
@@ -193,8 +197,8 @@ public class PdfFatturaService {
             doc.save(baos);
         }
 
-        for(DettaglioOrdine dettagli : dettaglioOrdine) {    
-            Prodotto prodotto = dettagli.getProdotto();         
+        for (DettaglioOrdine dettagli : dettaglioOrdine) {
+            Prodotto prodotto = dettagli.getProdotto();
             int quantita = prodotto.getQuantitaDisponibile() - dettagli.getQuantita();
             prodotto.setQuantitaDisponibile(quantita);
             ordineService.salvaProdotto(prodotto);

@@ -17,7 +17,7 @@ import artemgest.artemgest.model.Ordine;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class FatturaRepositoryTest {
+class FatturaRepositoryTest {
 
     @Autowired
     private FatturaRepository fatturaRepository;

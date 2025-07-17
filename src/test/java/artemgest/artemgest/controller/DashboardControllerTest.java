@@ -21,7 +21,7 @@ import artemgest.artemgest.service.DashboardService;
 import artemgest.artemgest.service.EventService;
 
 @WebMvcTest(DashboardController.class)
-public class DashboardControllerTest {
+class DashboardControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,7 +37,7 @@ public class DashboardControllerTest {
     private Map<String, BigDecimal> inAttesaStats;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         pagatoStats = new HashMap<>();
         pagatoStats.put("numeroFattureEmesse", BigDecimal.valueOf(5));
         pagatoStats.put("totale", BigDecimal.valueOf(1000));
@@ -51,11 +51,11 @@ public class DashboardControllerTest {
     }
 
     @Test
-    public void testDashboard() throws Exception {
+    void testDashboard() throws Exception {
         Mockito.when(eventService.getUpcomingEventNotifications()).thenReturn(Collections.emptyList());
-        Mockito.when(dashboardService.filtraFatture("PAGATO")).thenReturn(pagatoStats);
-        Mockito.when(dashboardService.filtraFatture("SCADUTE")).thenReturn(scaduteStats);
-        Mockito.when(dashboardService.filtraFatture("IN_ATTESA")).thenReturn(inAttesaStats);
+        Mockito.when(dashboardService.filtraFatture()).thenReturn(pagatoStats);
+        Mockito.when(dashboardService.filtraFatture()).thenReturn(scaduteStats);
+        Mockito.when(dashboardService.filtraFatture()).thenReturn(inAttesaStats);
 
         mockMvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())

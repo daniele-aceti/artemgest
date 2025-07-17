@@ -13,7 +13,7 @@ import artemgest.artemgest.model.Ordine;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class OrdineRepositoryTest {
+class OrdineRepositoryTest {
 
     @Autowired
     private OrdineRepository ordineRepository;

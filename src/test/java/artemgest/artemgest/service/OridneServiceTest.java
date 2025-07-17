@@ -25,7 +25,7 @@ import artemgest.artemgest.repository.OrdineRepository;
 import artemgest.artemgest.repository.ProdottoRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class OridneServiceTest {
+class OridneServiceTest {
 
     @Mock
     private OrdineRepository ordineRepository;
@@ -122,12 +122,12 @@ public class OridneServiceTest {
 
     @Test
     void salvaProdotto() {
-        Prodotto prodotto = new Prodotto();
-        prodotto.setId(1L);
+        Prodotto prodottoTest = new Prodotto();
+        prodottoTest.setId(1L);
 
-        when(prodottoRepository.save(prodotto)).thenReturn(prodotto);
+        when(prodottoRepository.save(prodotto)).thenReturn(prodottoTest);
 
-        Prodotto salvato = ordineService.salvaProdotto(prodotto);
+        Prodotto salvato = ordineService.salvaProdotto(prodottoTest);
 
         assertThat(salvato).isNotNull();
         assertThat(salvato.getId()).isEqualTo(1L);
@@ -148,15 +148,15 @@ public class OridneServiceTest {
 
     @Test
     void cercaProdotto() {
-        Prodotto prodotto = new Prodotto();
-        prodotto.setId(1L);
+        Prodotto findProdotto = new Prodotto();
+        findProdotto.setId(1L);
 
-        when(prodottoRepository.findById(1L)).thenReturn(Optional.of(prodotto));
+        when(prodottoRepository.findById(1L)).thenReturn(Optional.of(findProdotto));
 
         Optional<Prodotto> result = ordineService.cercaProdotto(1L);
 
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(prodotto);
+        assertThat(result.get()).isEqualTo(findProdotto);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class OridneServiceTest {
         Optional<Ordine> result = ordineService.cercaOrdine(1L);
 
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(ordine);
+        assertThat(result).contains(ordine);
     }
 
 }
