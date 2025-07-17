@@ -41,9 +41,10 @@ class ClienteServiceTest {
 
         Cliente result = clienteService.creaNuovoCliente(cliente);
 
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getRagioneSociale()).isEqualTo("Test Cliente");
+        assertThat(result)
+                .isNotNull()
+                .extracting("id", "ragioneSociale")
+                .containsExactly(1L, "Test Cliente");
     }
 
     @Test
@@ -62,9 +63,9 @@ class ClienteServiceTest {
         when(clienteRepository.findAll()).thenReturn(List.of(cliente));
 
         List<Cliente> listaClienti = clienteService.listaCliente();
-
-        assertThat(listaClienti).isNotEmpty();
-        assertThat(listaClienti).containsExactly(cliente);
+        assertThat(listaClienti)
+                .isNotEmpty()
+                .containsExactly(cliente);
     }
 
     @Test
@@ -73,8 +74,9 @@ class ClienteServiceTest {
 
         List<Cliente> clientiTrovati = clienteService.cercaCliente("Test Cliente");
 
-        assertThat(clientiTrovati).isNotEmpty();
-        assertThat(clientiTrovati).containsExactly(cliente);
+        assertThat(clientiTrovati)
+                .isNotEmpty()
+                .containsExactly(cliente);
     }
 
     @Test

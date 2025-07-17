@@ -27,7 +27,7 @@ import artemgest.artemgest.service.OrdineService;
 import artemgest.artemgest.service.PdfFatturaService;
 
 @WebMvcTest(FatturaController.class)
-public class FatturaControllerTest {
+class FatturaControllerTest {
 
     @Autowired
     private MockMvc mockmvc;

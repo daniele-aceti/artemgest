@@ -36,7 +36,7 @@ public class ClienteService {
 
     public List<Cliente> cercaCliente(String param) {
         if (param == null || param.isBlank()) {
-            return clienteRepository.findAll(); //TODO: INSERIRE UN LIMITE DEI CLIENTI CARICATI "TUTTI" RALLENTA
+            return clienteRepository.findAll();
         }
         return clienteRepository.findByRagioneSocialeContainingIgnoreCase(param);
     }

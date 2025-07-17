@@ -51,7 +51,7 @@ public class FatturaService {
 
     public List<Fattura> tutteFatture(String param) {
         if (param == null || param.isBlank()) {
-            return fatturaRepository.findAll(); //TODO: INSERIRE UN LIMITE DEI CLIENTI CARICATI "TUTTI" RALLENTA
+            return fatturaRepository.findAll();
         }
         return fatturaRepository.findByCliente_RagioneSocialeContainingIgnoreCase(param);
     }

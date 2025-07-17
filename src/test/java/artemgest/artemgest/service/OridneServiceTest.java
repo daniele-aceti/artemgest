@@ -71,9 +71,10 @@ class OridneServiceTest {
         when(prodottoRepository.findAll()).thenReturn(List.of(prodotto));
 
         List<Prodotto> listaProdotti = ordineService.listaProdotti();
+        assertThat(listaProdotti)
+                .isNotEmpty()
+                .containsExactly(prodotto);
 
-        assertThat(listaProdotti).isNotEmpty();
-        assertThat(listaProdotti).containsExactly(prodotto);
     }
 
     @Test
@@ -100,8 +101,9 @@ class OridneServiceTest {
 
         List<Ordine> ordini = ordineService.listaOrdini(clienteTest);
 
-        assertThat(ordini).isNotEmpty();
-        assertThat(ordini).containsExactly(ordine);
+        assertThat(ordini)
+                .isNotEmpty()
+                .containsExactly(ordine);
     }
 
     @Test
@@ -115,9 +117,9 @@ class OridneServiceTest {
         when(ordineRepository.save(ordine)).thenReturn(ordine);
 
         Ordine salvato = ordineService.salvaOrdine(ordine);
-
-        assertThat(salvato).isNotNull();
-        assertThat(salvato).isEqualTo(ordine);
+        assertThat(salvato)
+                .isNotNull()
+                .isEqualTo(ordine);
     }
 
     @Test
@@ -128,9 +130,9 @@ class OridneServiceTest {
         when(prodottoRepository.save(prodotto)).thenReturn(prodottoTest);
 
         Prodotto salvato = ordineService.salvaProdotto(prodottoTest);
-
-        assertThat(salvato).isNotNull();
-        assertThat(salvato.getId()).isEqualTo(1L);
+        assertThat(salvato)
+                .isNotNull()
+                .satisfies(s -> assertThat(s.getId()).isEqualTo(1L));
     }
 
     @Test
@@ -141,9 +143,10 @@ class OridneServiceTest {
         when(dettaglioOrdineRepository.findDettagliByOrdineId(1L)).thenReturn(List.of(dettaglio));
 
         List<DettaglioOrdine> dettagli = ordineService.listaProdottoFattura(1L);
+        assertThat(dettagli)
+                .isNotEmpty()
+                .containsExactly(dettaglio);
 
-        assertThat(dettagli).isNotEmpty();
-        assertThat(dettagli).containsExactly(dettaglio);
     }
 
     @Test
@@ -154,9 +157,9 @@ class OridneServiceTest {
         when(prodottoRepository.findById(1L)).thenReturn(Optional.of(findProdotto));
 
         Optional<Prodotto> result = ordineService.cercaProdotto(1L);
-
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(findProdotto);
+        assertThat(result)
+                .isPresent()
+                .hasValue(findProdotto);
     }
 
     @Test
@@ -164,9 +167,9 @@ class OridneServiceTest {
         when(ordineRepository.findById(1L)).thenReturn(Optional.of(ordine));
 
         Optional<Ordine> result = ordineService.cercaOrdine(1L);
-
-        assertThat(result).isPresent();
-        assertThat(result).contains(ordine);
+        assertThat(result)
+                .isPresent()
+                .contains(ordine);
     }
 
 }
